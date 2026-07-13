@@ -615,7 +615,7 @@ const stats = [
   { value: 94, suffix: "%", label: "Retainer renewal rate" },
 ];
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+function SignalCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(0);
   const started = useRef(false);
@@ -899,7 +899,7 @@ function Testimonials() {
           {stats.map((st) => (
             <div key={st.label} className="flex flex-col">
               <span className="font-serif text-4xl italic leading-none text-ink md:text-5xl">
-                <Counter to={st.value} suffix={st.suffix} />
+                <SignalCounter to={st.value} suffix={st.suffix} />
               </span>
               <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{st.label}</span>
             </div>
