@@ -4,6 +4,34 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-ink: oklch(0.14 0.01 260);
+  --color-bone: oklch(0.97 0.01 90);
+  --color-acid: oklch(0.86 0.19 105);
+  --color-flame: oklch(0.68 0.22 35);
+  --color-mist: oklch(0.55 0.02 260);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+}
+
 /*
  * Design system definition.
  *
