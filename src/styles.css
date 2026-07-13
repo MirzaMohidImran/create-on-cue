@@ -10,7 +10,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-ink: oklch(0.14 0.01 260);
   --color-bone: oklch(0.97 0.01 90);
-  --color-acid: oklch(0.86 0.19 105);
+  --color-acid: oklch(0.5 0.26 295);
   --color-flame: oklch(0.68 0.22 35);
   --color-mist: oklch(0.55 0.02 260);
 }
