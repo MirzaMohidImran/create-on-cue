@@ -553,47 +553,356 @@ function TechStack() {
   );
 }
 
-/* ————————————— TESTIMONIALS ————————————— */
-const quotes = [
+/* ————————————— SIGNAL ————————————— */
+type Signal = {
+  q: string;
+  highlight: string;
+  name: string;
+  role: string;
+  company: string;
+  initials: string;
+  metric: { value: string; label: string };
+  tint: string;
+};
+
+const signals: Signal[] = [
   {
     q: "Mohid rewrote our Shopify checkout logic and killed a 22-second LCP overnight. Revenue per session jumped the next week.",
-    a: "Head of Ecom, DTC skincare brand",
+    highlight: "killed a 22-second LCP overnight",
+    name: "Amara Bhatti",
+    role: "Head of Ecommerce",
+    company: "Lune & Sable — DTC skincare",
+    initials: "AB",
+    metric: { value: "+38%", label: "Revenue / session, wk 1" },
+    tint: "oklch(0.68 0.22 35 / 0.35)",
   },
   {
     q: "He replaced three contractors and shipped an AI agent that now handles 60% of our support tickets end-to-end.",
-    a: "Founder, B2B SaaS · Series A",
+    highlight: "60% of tickets end-to-end",
+    name: "Daniel Reyes",
+    role: "Founder & CEO",
+    company: "Northlane — B2B SaaS · Series A",
+    initials: "DR",
+    metric: { value: "3 → 1", label: "Contractors replaced" },
+    tint: "oklch(0.5 0.26 295 / 0.35)",
   },
   {
     q: "The kind of engineer you keep on speed dial. Ships, communicates, and thinks about the business, not just the code.",
-    a: "Creative Director, boutique agency",
+    highlight: "thinks about the business",
+    name: "Sasha Ito",
+    role: "Creative Director",
+    company: "Field Studio — boutique agency",
+    initials: "SI",
+    metric: { value: "18 mo", label: "On retainer" },
+    tint: "oklch(0.86 0.19 105 / 0.30)",
+  },
+  {
+    q: "Two weeks from kickoff to a headless storefront that outranks Shopify's own theme on Core Web Vitals. Unreal.",
+    highlight: "two weeks from kickoff",
+    name: "Priya Kohli",
+    role: "VP Growth",
+    company: "Orbit Goods — headless commerce",
+    initials: "PK",
+    metric: { value: "98 / 100", label: "Lighthouse mobile" },
+    tint: "oklch(0.5 0.26 295 / 0.35)",
   },
 ];
 
-function Testimonials() {
+const stats = [
+  { value: 100, suffix: "+", label: "Projects delivered" },
+  { value: 3, suffix: "+", label: "Years in the trenches" },
+  { value: 12, suffix: "", label: "Countries billed from" },
+  { value: 94, suffix: "%", label: "Retainer renewal rate" },
+];
+
+function SignalCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [n, setN] = useState(0);
+  const started = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !started.current) {
+            started.current = true;
+            const start = performance.now();
+            const dur = 1400;
+            const step = (t: number) => {
+              const p = Math.min(1, (t - start) / dur);
+              const eased = 1 - Math.pow(1 - p, 3);
+              setN(Math.round(to * eased));
+              if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [to]);
   return (
-    <section className="relative bg-bone px-6 py-32 text-ink md:px-10 md:py-48">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8">
-        <div className="col-span-12 md:col-span-4">
-          <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 07 — Signal</p>
-          <h2 className="mt-6 font-serif text-5xl italic leading-[0.95] md:text-7xl">
-            From the<br />people who<br />signed the PO.
-          </h2>
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
+  );
+}
+
+function SignalCard({ s, index, progress }: { s: Signal; index: number; progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  // each card occupies a slice of the pinned scroll
+  const slice = 1 / signals.length;
+  const start = index * slice;
+  const end = start + slice;
+  const mid = start + slice * 0.55;
+
+  const opacity = useTransform(progress, [start, start + slice * 0.15, end - slice * 0.1, end], [0, 1, 1, 0]);
+  const y = useTransform(progress, [start, mid, end], [80, 0, -80]);
+  const scale = useTransform(progress, [start, mid, end], [0.94, 1, 0.96]);
+  const blur = useTransform(progress, [start, mid, end], [12, 0, 8]);
+  const filter = useTransform(blur, (b) => `blur(${b}px)`);
+  const rotate = index % 2 === 0 ? -1.2 : 1.2;
+  const side = index % 2 === 0 ? "md:ml-0 md:mr-auto" : "md:ml-auto md:mr-0";
+
+  // mouse tilt
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 120, damping: 15 });
+  const sry = useSpring(ry, { stiffness: 120, damping: 15 });
+
+  const [hover, setHover] = useState(false);
+
+  const parts = s.q.split(s.highlight);
+
+  return (
+    <motion.figure
+      style={{ opacity, y, scale, filter, rotate }}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        ry.set(px * 8);
+        rx.set(-py * 8);
+      }}
+      onMouseLeave={() => {
+        rx.set(0);
+        ry.set(0);
+        setHover(false);
+      }}
+      onMouseEnter={() => setHover(true)}
+      className={`pointer-events-auto absolute inset-x-4 top-1/2 -translate-y-1/2 md:inset-x-auto md:w-[62%] ${side}`}
+    >
+      <motion.div
+        style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
+        className="group relative overflow-hidden rounded-[28px] border border-ink/10 bg-bone/70 p-8 shadow-[0_40px_120px_-40px_rgba(20,20,30,0.35)] backdrop-blur-xl md:p-14"
+      >
+        {/* dynamic light */}
+        <motion.div
+          aria-hidden
+          animate={{ opacity: hover ? 1 : 0.55 }}
+          transition={{ duration: 0.6 }}
+          className="pointer-events-none absolute -inset-40 -z-10"
+          style={{ background: `radial-gradient(500px circle at 30% 20%, ${s.tint}, transparent 60%)` }}
+        />
+        {/* animated border */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[28px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background: `conic-gradient(from 140deg, transparent, ${s.tint}, transparent 45%)`,
+            padding: 1,
+            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+
+        <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+          <span>Signal · 0{index + 1}</span>
+          <span className="hidden sm:inline">{s.company}</span>
         </div>
-        <div className="col-span-12 space-y-6 md:col-span-8">
-          {quotes.map((q, i) => (
-            <motion.figure
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: i * 0.1, duration: 0.7 }}
-              className="rounded-3xl border border-ink/10 bg-ink/[0.03] p-8 md:p-12"
+
+        <blockquote className="mt-8 font-serif text-[26px] italic leading-[1.15] text-ink md:text-[44px]">
+          <span aria-hidden className="mr-2 -ml-2 align-top text-acid">“</span>
+          {parts[0]}
+          <span className="relative inline">
+            <span className="relative z-10">{s.highlight}</span>
+            <motion.span
+              aria-hidden
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
+              style={{ background: s.tint, transformOrigin: "left" }}
+              className="absolute inset-x-0 bottom-1 -z-0 h-[38%] rounded-[2px]"
+            />
+          </span>
+          {parts[1]}
+          <span aria-hidden className="ml-1 align-top text-acid">”</span>
+        </blockquote>
+
+        <figcaption className="mt-10 flex flex-wrap items-end justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div
+              className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 font-mono text-xs tracking-widest text-ink"
+              style={{ background: s.tint }}
             >
-              <blockquote className="font-serif text-2xl italic leading-snug md:text-3xl">
-                “{q.q}”
-              </blockquote>
-              <figcaption className="mt-6 font-mono text-xs uppercase tracking-[0.24em] text-mist">— {q.a}</figcaption>
-            </motion.figure>
+              {s.initials}
+            </div>
+            <div>
+              <div className="font-serif text-lg italic leading-tight text-ink">{s.name}</div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+                {s.role} · {s.company.split(" — ")[0]}
+              </div>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="font-serif text-3xl italic leading-none text-ink md:text-4xl">{s.metric.value}</div>
+            <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{s.metric.label}</div>
+          </div>
+        </figcaption>
+      </motion.div>
+    </motion.figure>
+  );
+}
+
+function Testimonials() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
+
+  // background marquee & orbs
+  const bgX = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const bgX2 = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
+  const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [1, 1, 0.15, 0]);
+  const indexActive = useTransform(scrollYProgress, (v) => Math.min(signals.length - 1, Math.floor(v * signals.length)));
+  const [active, setActive] = useState(0);
+  useMotionValueEvent(indexActive, "change", (v) => setActive(v as number));
+
+  // mouse parallax layer
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const smx = useSpring(mx, { stiffness: 50, damping: 20 });
+  const smy = useSpring(my, { stiffness: 50, damping: 20 });
+  const pxLayer = useTransform(smx, (v) => (v - 0.5) * -40);
+  const pyLayer = useTransform(smy, (v) => (v - 0.5) * -30);
+
+  return (
+    <section
+      ref={wrapRef}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width);
+        my.set((e.clientY - r.top) / r.height);
+      }}
+      className="grain relative bg-bone text-ink"
+      style={{ height: `${signals.length * 100 + 60}vh` }}
+    >
+      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
+        {/* backdrop grid */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+            color: "oklch(0.14 0.01 260)",
+          }}
+        />
+        {/* floating orbs */}
+        <motion.div
+          aria-hidden
+          style={{ y: orbY, x: pxLayer }}
+          className="pointer-events-none absolute -left-40 top-1/4 h-[520px] w-[520px] rounded-full blur-3xl"
+        >
+          <div className="h-full w-full rounded-full bg-[radial-gradient(circle,oklch(0.5_0.26_295_/_0.25),transparent_65%)]" />
+        </motion.div>
+        <motion.div
+          aria-hidden
+          style={{ y: orbY, x: pyLayer }}
+          className="pointer-events-none absolute -right-40 bottom-0 h-[560px] w-[560px] rounded-full blur-3xl"
+        >
+          <div className="h-full w-full rounded-full bg-[radial-gradient(circle,oklch(0.68_0.22_35_/_0.22),transparent_65%)]" />
+        </motion.div>
+
+        {/* scrolling background words */}
+        <motion.div
+          aria-hidden
+          style={{ x: bgX }}
+          className="pointer-events-none absolute left-0 right-0 top-[18%] whitespace-nowrap font-serif text-[22vw] italic leading-none text-ink/[0.045]"
+        >
+          signal · signal · signal · signal · signal ·
+        </motion.div>
+        <motion.div
+          aria-hidden
+          style={{ x: bgX2 }}
+          className="pointer-events-none absolute left-0 right-0 bottom-[8%] whitespace-nowrap font-serif text-[18vw] italic leading-none text-ink/[0.035]"
+        >
+          shipped · trusted · retained · shipped · trusted ·
+        </motion.div>
+
+        {/* header */}
+        <motion.header
+          style={{ opacity: headerOpacity }}
+          className="relative z-10 flex items-start justify-between gap-6 px-6 pt-28 md:px-14 md:pt-24"
+        >
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 07 — Signal</p>
+            <h2 className="mt-5 max-w-[9ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
+              What the<br />
+              <span className="text-acid">receipts</span> say.
+            </h2>
+          </div>
+          <div className="hidden max-w-xs text-right md:block">
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
+              Unedited excerpts from<br />operators who signed the PO.
+            </p>
+          </div>
+        </motion.header>
+
+        {/* card stage */}
+        <div className="relative z-10 flex-1">
+          {signals.map((s, i) => (
+            <SignalCard key={i} s={s} index={i} progress={scrollYProgress} />
+          ))}
+
+          {/* index rail */}
+          <div className="pointer-events-none absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-4 md:flex">
+            {signals.map((s, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <motion.span
+                  animate={{
+                    width: active === i ? 44 : 18,
+                    backgroundColor: active === i ? "oklch(0.14 0.01 260)" : "oklch(0.14 0.01 260 / 0.25)",
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="h-px"
+                />
+                <span
+                  className={`font-mono text-[10px] uppercase tracking-[0.24em] transition-colors ${
+                    active === i ? "text-ink" : "text-mist/70"
+                  }`}
+                >
+                  0{i + 1} · {s.name.split(" ")[0]}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* stats footer */}
+        <div className="relative z-10 grid grid-cols-2 gap-y-6 border-t border-ink/10 bg-bone/60 px-6 py-6 backdrop-blur-md md:grid-cols-4 md:px-14 md:py-8">
+          {stats.map((st) => (
+            <div key={st.label} className="flex flex-col">
+              <span className="font-serif text-4xl italic leading-none text-ink md:text-5xl">
+                <SignalCounter to={st.value} suffix={st.suffix} />
+              </span>
+              <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{st.label}</span>
+            </div>
           ))}
         </div>
       </div>
