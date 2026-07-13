@@ -19,6 +19,7 @@ function Index() {
       <Process />
       <TechStack />
       <Testimonials />
+      <FaqContact />
       <ClosingCTA />
     </SiteShell>
   );
