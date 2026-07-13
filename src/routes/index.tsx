@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useMotionValue, useMotionValueEvent, useSpring, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SiteShell, Marquee } from "@/components/site/shell";
+import { ProfessionalExperience } from "@/components/site/experience";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -15,6 +16,7 @@ function Index() {
       <Marquee items={["Shopify Plus", "Headless Commerce", "AI Automation", "Full Stack", "Django", "Performance", "CRO", "Django · React · Next"]} />
       <Intro />
       <Capabilities />
+      <ProfessionalExperience />
       <FeaturedWork />
       <Process />
       <TechStack />
