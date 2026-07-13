@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useMotionValueEvent, useSpring, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SiteShell, Marquee } from "@/components/site/shell";
 
@@ -336,50 +336,63 @@ function Capabilities() {
   );
 }
 
-/* ————————————— FEATURED WORK ————————————— */
-const projects = [
+/* ————————————— FEATURED WORK (sticky storytelling) ————————————— */
+const featured = [
   {
+    n: "01",
     title: "Nordic Grain Co.",
     kind: "Shopify Plus · Headless",
-    year: "2025",
     metric: "+38% AOV",
+    line: "A quiet, editorial commerce experience for a Scandinavian coffee roaster.",
     color: "oklch(0.72 0.18 45)",
   },
   {
+    n: "02",
     title: "Astra Automations",
-    kind: "AI Platform",
-    year: "2025",
+    kind: "AI Platform · Support",
     metric: "12k hrs saved",
-    color: "oklch(0.68 0.19 260)",
+    line: "An agentic operations layer resolving 60% of tier-1 tickets end to end.",
+    color: "oklch(0.68 0.19 275)",
   },
   {
+    n: "03",
     title: "Fieldnote Studio",
     kind: "Editorial Commerce",
-    year: "2024",
     metric: "98 CWV",
+    line: "Longform meets checkout for an independent print magazine.",
     color: "oklch(0.85 0.12 130)",
   },
   {
+    n: "04",
     title: "Meridian Wholesale",
-    kind: "B2B Platform",
-    year: "2024",
+    kind: "B2B Portal",
     metric: "$4.2M GMV",
+    line: "A wholesale ordering platform with tiered pricing and NetSuite sync.",
     color: "oklch(0.62 0.16 20)",
   },
 ];
 
 function FeaturedWork() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [active, setActive] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const i = Math.min(featured.length - 1, Math.max(0, Math.floor(v * featured.length)));
+    setActive(i);
+  });
+
   return (
-    <section ref={ref} className="relative overflow-hidden bg-bone px-6 py-32 text-ink md:px-10 md:py-48">
-      <div className="mx-auto max-w-[1400px]">
-        <div className="flex items-end justify-between">
+    <section
+      ref={ref}
+      className="relative bg-bone text-ink"
+      style={{ height: `${featured.length * 100}vh` }}
+    >
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+        <div className="flex items-end justify-between px-6 pt-24 md:px-10">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 04 — Selected Work</p>
-            <h2 className="mt-6 font-serif text-5xl italic leading-[0.95] tracking-tight md:text-7xl">
-              Objects in&nbsp;<br className="hidden md:block" />the wild.
+            <h2 className="mt-4 font-serif text-4xl italic leading-none md:text-6xl">
+              Objects in the wild.
             </h2>
           </div>
           <Link to="/portfolio" className="hidden items-center gap-2 border-b border-ink pb-1 font-display text-sm hover:text-flame md:inline-flex">
@@ -387,49 +400,80 @@ function FeaturedWork() {
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-12 gap-6">
-          {projects.map((p, i) => (
-            <motion.article
-              key={p.title}
-              style={{ y: i % 2 === 0 ? y : undefined }}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative col-span-12 overflow-hidden rounded-3xl md:col-span-6 ${
-                i % 3 === 0 ? "md:col-span-7" : i % 3 === 1 ? "md:col-span-5" : "md:col-span-6"
-              }`}
-            >
-              <div
-                className="relative aspect-[4/3] w-full overflow-hidden"
-                style={{ backgroundColor: p.color }}
+        <div className="relative mx-auto mt-8 grid w-full max-w-[1400px] flex-1 grid-cols-12 items-center gap-6 px-6 pb-16 md:px-10">
+          {/* left: sticky big canvas */}
+          <div className="relative col-span-12 h-[52vh] overflow-hidden rounded-3xl md:col-span-7 md:h-[70vh]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={featured[active].title}
+                initial={{ clipPath: "inset(100% 0 0 0)" }}
+                animate={{ clipPath: "inset(0% 0 0 0)" }}
+                exit={{ clipPath: "inset(0 0 100% 0)" }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
+                style={{ backgroundColor: featured[active].color }}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,oklch(1_0_0_/_0.35),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,oklch(1_0_0_/_0.4),transparent_55%)]" />
                 <div
                   aria-hidden
-                  className="absolute inset-0 opacity-30"
+                  className="absolute inset-0 opacity-25"
                   style={{
                     backgroundImage:
                       "linear-gradient(oklch(0.14_0.01_260) 1px, transparent 1px), linear-gradient(90deg, oklch(0.14_0.01_260) 1px, transparent 1px)",
-                    backgroundSize: "40px 40px",
+                    backgroundSize: "48px 48px",
                   }}
                 />
-                <div className="absolute inset-0 flex flex-col justify-between p-8 text-ink md:p-10">
-                  <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.24em]">
-                    <span>{p.kind}</span>
-                    <span>{p.year}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-4xl italic leading-none md:text-6xl">{p.title}</h3>
-                    <p className="mt-3 font-mono text-xs uppercase tracking-[0.24em]">{p.metric}</p>
-                  </div>
+                <div className="absolute inset-x-8 top-8 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.24em] text-ink md:inset-x-12 md:top-12">
+                  <span>{featured[active].kind}</span>
+                  <span>{featured[active].n} / 0{featured.length}</span>
                 </div>
-                <div className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full bg-ink text-bone transition-transform duration-500 group-hover:rotate-45">
-                  ↗
+                <div className="absolute inset-x-8 bottom-8 md:inset-x-12 md:bottom-12">
+                  <div className="font-serif text-5xl italic leading-none text-ink md:text-8xl">
+                    {featured[active].title}
+                  </div>
+                  <div className="mt-4 max-w-md text-sm text-ink/80">{featured[active].line}</div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* right: index list with progress */}
+          <div className="col-span-12 md:col-span-5">
+            <ol className="space-y-2">
+              {featured.map((p, i) => {
+                const isActive = i === active;
+                return (
+                  <li
+                    key={p.title}
+                    className={`relative overflow-hidden rounded-2xl border transition-colors ${
+                      isActive ? "border-ink bg-ink text-bone" : "border-ink/15 text-ink"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-4 px-5 py-4">
+                      <div className="flex items-center gap-4">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] opacity-70">{p.n}</span>
+                        <span className="font-serif text-2xl italic md:text-3xl">{p.title}</span>
+                      </div>
+                      <span className={`font-mono text-[10px] uppercase tracking-[0.24em] ${isActive ? "text-acid" : "opacity-60"}`}>
+                        {p.metric}
+                      </span>
+                    </div>
+                    {isActive && (
+                      <motion.div
+                        layoutId="featured-underline"
+                        className="absolute inset-x-0 bottom-0 h-0.5 bg-acid"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="mt-8 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+              <span>Scroll to advance</span>
+              <Link to="/portfolio" className="text-ink hover:text-flame">Enter gallery →</Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
