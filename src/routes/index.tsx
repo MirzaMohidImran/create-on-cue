@@ -924,7 +924,7 @@ function ClosingCTA() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.86_0.19_105_/_0.25),transparent_70%)] blur-3xl"
       />
       <div className="relative mx-auto max-w-[1400px] text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 08 — Next</p>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 09 — Next</p>
         <h2 className="mx-auto mt-8 max-w-5xl font-serif text-6xl italic leading-[0.95] tracking-tight md:text-[9vw]">
           Have a problem<br />worth <span className="text-acid">shipping?</span>
         </h2>
