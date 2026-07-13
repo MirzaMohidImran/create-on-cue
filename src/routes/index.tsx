@@ -19,6 +19,7 @@ function Index() {
       <Process />
       <TechStack />
       <Testimonials />
+      <FaqContact />
       <ClosingCTA />
     </SiteShell>
   );
@@ -923,7 +924,7 @@ function ClosingCTA() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.86_0.19_105_/_0.25),transparent_70%)] blur-3xl"
       />
       <div className="relative mx-auto max-w-[1400px] text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 08 — Next</p>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 09 — Next</p>
         <h2 className="mx-auto mt-8 max-w-5xl font-serif text-6xl italic leading-[0.95] tracking-tight md:text-[9vw]">
           Have a problem<br />worth <span className="text-acid">shipping?</span>
         </h2>
@@ -933,5 +934,502 @@ function ClosingCTA() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ————————————— FAQ + CONTACT ————————————— */
+const faqs = [
+  {
+    q: "How long does a project take?",
+    a: "Most engagements land between 2 and 8 weeks. A tuned Shopify storefront ships in 10–14 days; a headless build or AI agent is usually 4–8. You get a fixed timeline before we sign anything.",
+    tag: "Timeline",
+  },
+  {
+    q: "Do you work with international clients?",
+    a: "Yes — currently billing from 12 countries across North America, EU, GCC and APAC. I run on your working hours, with async loom updates end-of-day and one live call per week.",
+    tag: "Global",
+  },
+  {
+    q: "Can you build custom Shopify apps?",
+    a: "Private and public apps, checkout extensions, Shopify Functions, Hydrogen storefronts. Everything shipped with TypeScript, tests and a proper CI pipeline — not a cobbled Liquid hack.",
+    tag: "Shopify",
+  },
+  {
+    q: "Do you offer AI automation?",
+    a: "Yes. Support agents, sales copilots, RAG over internal docs, workflow automations across Slack/Notion/HubSpot. Usually cuts a full contractor-line-item within the first quarter.",
+    tag: "AI",
+  },
+  {
+    q: "Can you improve an existing website?",
+    a: "Often the highest-ROI option. I start with a paid audit (Core Web Vitals, checkout funnel, code health) then execute the fixes. Most rescues recover LCP under 2.0s in the first week.",
+    tag: "Rescue",
+  },
+  {
+    q: "Do you provide long-term support?",
+    a: "Retainers from 20h/month upward — 94% renewal rate. You get a shared Linear board, weekly ship notes, and priority Slack. Cancel any month, no lock-in.",
+    tag: "Retainer",
+  },
+  {
+    q: "What technologies do you work with?",
+    a: "Django, Next.js, TanStack, Shopify Plus / Hydrogen, Postgres, Supabase, tRPC, Cloudflare Workers, OpenAI / Anthropic / open-source LLMs. Pragmatic first, hype-driven never.",
+    tag: "Stack",
+  },
+  {
+    q: "How do we get started?",
+    a: "Send a note on the right. You'll get a reply within 24 hours with a 30-min discovery call slot. Within a week you'll have scope, timeline and a fixed quote.",
+    tag: "Kickoff",
+  },
+];
+
+function FaqItem({ item, open, onToggle, index }: { item: (typeof faqs)[number]; open: boolean; onToggle: () => void; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ delay: index * 0.04, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative border-b border-white/10"
+    >
+      <motion.span
+        aria-hidden
+        initial={false}
+        animate={{ opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+        className="pointer-events-none absolute -inset-x-4 inset-y-0 -z-10 rounded-2xl"
+        style={{ background: "radial-gradient(600px circle at 20% 50%, oklch(0.5 0.26 295 / 0.14), transparent 60%)" }}
+      />
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center gap-6 py-6 text-left md:py-8"
+        aria-expanded={open}
+      >
+        <span className="w-10 shrink-0 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">0{index + 1}</span>
+        <span className="flex-1 font-serif text-xl italic leading-tight text-bone transition-colors md:text-3xl">
+          {item.q}
+        </span>
+        <span className="hidden shrink-0 rounded-full border border-white/15 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.24em] text-mist md:inline-block">
+          {item.tag}
+        </span>
+        <motion.span
+          animate={{ rotate: open ? 45 : 0, backgroundColor: open ? "oklch(0.5 0.26 295)" : "transparent" }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0, filter: "blur(8px)" }}
+            animate={{ height: "auto", opacity: 1, filter: "blur(0px)" }}
+            exit={{ height: 0, opacity: 0, filter: "blur(8px)" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="flex gap-6 pb-8 pl-16 pr-4 md:pr-16">
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                exit={{ scaleY: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: "top" }}
+                className="w-px shrink-0 bg-gradient-to-b from-acid via-acid/40 to-transparent"
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ duration: 0.5, delay: 0.05 }}
+                className="max-w-2xl font-sans text-base leading-relaxed text-bone/70 md:text-lg"
+              >
+                {item.a}
+              </motion.p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+function FaqContact() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "20%"]);
+  const orb1 = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const orb2 = useTransform(scrollYProgress, [0, 1], ["10%", "-20%"]);
+
+  const [open, setOpen] = useState<number | null>(0);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    projectType: "Shopify build",
+    budget: "$10k — $25k",
+    details: "",
+  });
+  const [sent, setSent] = useState(false);
+  const [focused, setFocused] = useState<string | null>(null);
+
+  // magnetic button
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const bx = useMotionValue(0);
+  const by = useMotionValue(0);
+  const sbx = useSpring(bx, { stiffness: 200, damping: 15 });
+  const sby = useSpring(by, { stiffness: 200, damping: 15 });
+
+  const projectTypes = ["Shopify build", "Headless commerce", "AI automation", "Web app", "Audit / rescue"];
+  const budgets = ["$5k — $10k", "$10k — $25k", "$25k — $50k", "$50k+"];
+
+  const trust = [
+    { v: "100+", l: "Projects shipped" },
+    { v: "24h", l: "Reply time" },
+    { v: "12", l: "Countries" },
+    { v: "94%", l: "Renewal rate" },
+  ];
+
+  return (
+    <section
+      ref={sectionRef}
+      className="grain relative overflow-hidden bg-ink px-6 py-32 text-bone md:px-10 md:py-48"
+    >
+      {/* background layers */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          color: "oklch(0.97 0.01 90)",
+        }}
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: orb1 }}
+        className="pointer-events-none absolute -left-40 top-20 h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,oklch(0.5_0.26_295_/_0.35),transparent_65%)] blur-3xl"
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: orb2 }}
+        className="pointer-events-none absolute -right-40 bottom-0 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,oklch(0.68_0.22_35_/_0.25),transparent_65%)] blur-3xl"
+      />
+      <motion.div
+        aria-hidden
+        style={{ y: bgY }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5"
+      />
+
+      <div className="relative mx-auto max-w-[1400px]">
+        {/* header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20 flex flex-col items-start justify-between gap-6 md:mb-28 md:flex-row md:items-end"
+        >
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 08 — Consult</p>
+            <h2 className="mt-6 max-w-[14ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
+              Questions,<br />
+              then <span className="text-acid">answers</span>.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-x-8 gap-y-3 md:justify-end">
+            {trust.map((t) => (
+              <div key={t.l} className="flex items-baseline gap-2">
+                <span className="font-serif text-2xl italic text-bone">{t.v}</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{t.l}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-12 gap-8 md:gap-12">
+          {/* LEFT — FAQ */}
+          <motion.div
+            initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 md:col-span-7"
+          >
+            <div className="mb-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+              <span className="h-px w-8 bg-acid" />
+              Frequently asked
+            </div>
+            <div>
+              {faqs.map((f, i) => (
+                <FaqItem
+                  key={f.q}
+                  item={f}
+                  index={i}
+                  open={open === i}
+                  onToggle={() => setOpen(open === i ? null : i)}
+                />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* RIGHT — CONTACT */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="col-span-12 md:col-span-5"
+          >
+            <div className="sticky top-24">
+              <div
+                className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] p-8 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:p-10"
+              >
+                {/* animated gradient border */}
+                <motion.span
+                  aria-hidden
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                  className="pointer-events-none absolute -inset-[1px] -z-10 rounded-[32px] opacity-60"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, transparent 0%, oklch(0.5 0.26 295 / 0.55) 20%, transparent 40%, oklch(0.68 0.22 35 / 0.45) 65%, transparent 85%)",
+                  }}
+                />
+                <div className="absolute inset-[1px] -z-10 rounded-[31px] bg-ink/85 backdrop-blur-2xl" />
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Start a project</p>
+                    <h3 className="mt-3 font-serif text-3xl italic leading-tight md:text-4xl">
+                      Tell me what<br />you're building.
+                    </h3>
+                  </div>
+                  <span className="relative flex h-3 w-3">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-acid opacity-60" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-acid" />
+                  </span>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  {sent ? (
+                    <motion.div
+                      key="sent"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-10 rounded-2xl border border-acid/30 bg-acid/10 p-6 text-center"
+                    >
+                      <div className="font-serif text-3xl italic text-bone">Message received.</div>
+                      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
+                        Reply in your inbox within 24h.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (!form.name.trim() || !form.email.trim() || !form.details.trim()) return;
+                        setSent(true);
+                      }}
+                      className="mt-8 space-y-5"
+                    >
+                      {[
+                        { key: "name", label: "Your name", type: "text", placeholder: "Ada Lovelace" },
+                        { key: "email", label: "Email", type: "email", placeholder: "ada@studio.com" },
+                        { key: "company", label: "Company", type: "text", placeholder: "Analytical Engines Co." },
+                      ].map((field) => (
+                        <FloatingField
+                          key={field.key}
+                          label={field.label}
+                          type={field.type}
+                          placeholder={field.placeholder}
+                          value={form[field.key as keyof typeof form] as string}
+                          onChange={(v) => setForm({ ...form, [field.key]: v })}
+                          focused={focused === field.key}
+                          onFocus={() => setFocused(field.key)}
+                          onBlur={() => setFocused(null)}
+                          maxLength={field.key === "email" ? 255 : 120}
+                        />
+                      ))}
+
+                      <div>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Project type</label>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {projectTypes.map((p) => (
+                            <button
+                              type="button"
+                              key={p}
+                              onClick={() => setForm({ ...form, projectType: p })}
+                              className={`rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] transition-all ${
+                                form.projectType === p
+                                  ? "border-acid bg-acid text-ink"
+                                  : "border-white/15 bg-white/[0.02] text-bone/70 hover:border-white/40 hover:text-bone"
+                              }`}
+                            >
+                              {p}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Budget range</label>
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          {budgets.map((b) => (
+                            <button
+                              type="button"
+                              key={b}
+                              onClick={() => setForm({ ...form, budget: b })}
+                              className={`rounded-xl border px-3 py-3 text-left font-mono text-[11px] tracking-wide transition-all ${
+                                form.budget === b
+                                  ? "border-acid/60 bg-acid/10 text-bone"
+                                  : "border-white/10 bg-white/[0.02] text-bone/60 hover:border-white/30 hover:text-bone"
+                              }`}
+                            >
+                              {b}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="relative">
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Project details</label>
+                        <div className="relative mt-3">
+                          <textarea
+                            value={form.details}
+                            onFocus={() => setFocused("details")}
+                            onBlur={() => setFocused(null)}
+                            onChange={(e) => setForm({ ...form, details: e.target.value.slice(0, 1000) })}
+                            rows={4}
+                            placeholder="What are you building, and what does 'shipped' look like?"
+                            className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3 font-sans text-sm text-bone placeholder:text-mist/60 outline-none transition-all focus:border-acid/60 focus:bg-white/[0.04]"
+                          />
+                          <motion.span
+                            aria-hidden
+                            initial={false}
+                            animate={{ opacity: focused === "details" ? 1 : 0 }}
+                            className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-acid/30"
+                          />
+                          <div className="mt-1 text-right font-mono text-[10px] text-mist/60">{form.details.length}/1000</div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-4 pt-2">
+                        <motion.button
+                          ref={btnRef}
+                          type="submit"
+                          onMouseMove={(e) => {
+                            const r = e.currentTarget.getBoundingClientRect();
+                            bx.set(((e.clientX - r.left) / r.width - 0.5) * 20);
+                            by.set(((e.clientY - r.top) / r.height - 0.5) * 20);
+                          }}
+                          onMouseLeave={() => {
+                            bx.set(0);
+                            by.set(0);
+                          }}
+                          style={{ x: sbx, y: sby }}
+                          whileTap={{ scale: 0.97 }}
+                          className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-acid px-7 py-4 font-mono text-[11px] uppercase tracking-[0.24em] text-ink transition-shadow hover:shadow-[0_20px_60px_-10px_oklch(0.5_0.26_295_/_0.6)]"
+                        >
+                          <span className="relative z-10">Send inquiry</span>
+                          <motion.span
+                            aria-hidden
+                            className="relative z-10"
+                            initial={{ x: 0 }}
+                            whileHover={{ x: 4 }}
+                          >
+                            →
+                          </motion.span>
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 -z-0 bg-gradient-to-r from-acid via-flame to-acid opacity-0 transition-opacity group-hover:opacity-100"
+                          />
+                        </motion.button>
+                        <a
+                          href="https://cal.com"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist underline-offset-4 transition-colors hover:text-bone hover:underline"
+                        >
+                          or book a call ↗
+                        </a>
+                      </div>
+
+                      <p className="pt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+                        <span className="inline-block h-1.5 w-1.5 translate-y-[-1px] rounded-full bg-acid" /> Usually replies within 24 hours
+                      </p>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FloatingField({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  focused,
+  onFocus,
+  onBlur,
+  maxLength,
+}: {
+  label: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (v: string) => void;
+  focused: boolean;
+  onFocus: () => void;
+  onBlur: () => void;
+  maxLength: number;
+}) {
+  const active = focused || value.length > 0;
+  return (
+    <div className="relative">
+      <motion.label
+        animate={{
+          y: active ? -8 : 14,
+          fontSize: active ? "10px" : "13px",
+          color: focused ? "oklch(0.5 0.26 295)" : "oklch(0.55 0.02 260)",
+        }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute left-4 top-0 origin-left font-mono uppercase tracking-[0.24em]"
+      >
+        {label}
+      </motion.label>
+      <input
+        type={type}
+        value={value}
+        placeholder={active ? placeholder : ""}
+        maxLength={maxLength}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full rounded-2xl border border-white/10 bg-white/[0.02] px-4 pb-3 pt-6 font-sans text-sm text-bone placeholder:text-mist/40 outline-none transition-all focus:border-acid/60 focus:bg-white/[0.04]"
+      />
+      <motion.span
+        aria-hidden
+        initial={false}
+        animate={{ scaleX: focused ? 1 : 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        style={{ transformOrigin: "left" }}
+        className="pointer-events-none absolute inset-x-4 bottom-2 h-px bg-acid"
+      />
+    </div>
   );
 }
