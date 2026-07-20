@@ -34,6 +34,7 @@ export function SiteNav() {
   }, [open]);
 
   return (
+    <>
     <motion.header
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -104,8 +105,9 @@ export function SiteNav() {
           </span>
         </button>
       </div>
+    </motion.header>
 
-      <AnimatePresence>
+    <AnimatePresence>
         {open && (
           <motion.div
             key="mobile-menu"
@@ -168,7 +170,7 @@ export function SiteNav() {
             </motion.nav>
           </motion.div>
         )}
-      </AnimatePresence>
-    </motion.header>
+    </AnimatePresence>
+    </>
   );
 }
