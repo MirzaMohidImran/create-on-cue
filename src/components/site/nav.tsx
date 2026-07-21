@@ -43,16 +43,16 @@ export function SiteNav() {
         scrolled || open ? "backdrop-blur-xl bg-[oklch(0.14_0.01_260_/_0.75)]" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto grid max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6 md:flex md:px-10 md:py-4">
+      <div className="mx-auto grid h-16 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6 md:flex md:h-20 md:justify-between md:px-10">
         <Link
           to="/"
-          className="group flex min-w-0 items-center gap-2 font-display text-sm tracking-tight text-bone"
+          className="group flex min-w-0 shrink-0 items-center gap-2 font-display text-sm tracking-tight text-bone"
         >
           <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-acid text-ink">
             <span className="font-serif italic text-lg leading-none">M</span>
           </span>
           <span className="truncate">Mohid Imran</span>
-          <span className="hidden text-mist sm:inline">— studio</span>
+          <span className="hidden text-mist lg:inline">— studio</span>
         </Link>
         <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-1.5 backdrop-blur md:flex">
           {links.map((l) => {
@@ -61,7 +61,7 @@ export function SiteNav() {
               <Link
                 key={l.to}
                 to={l.to}
-                className={`relative rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.14em] transition-colors ${
+                className={`relative rounded-full px-3 py-1.5 text-[11px] uppercase tracking-[0.14em] transition-colors lg:px-4 lg:text-xs ${
                   active ? "text-ink" : "text-bone/70 hover:text-bone"
                 }`}
               >
@@ -79,7 +79,7 @@ export function SiteNav() {
         </nav>
         <Link
           to="/contact"
-          className="group hidden items-center gap-2 rounded-full bg-bone px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-ink transition hover:bg-acid md:inline-flex"
+          className="group hidden shrink-0 items-center gap-2 rounded-full bg-bone px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-ink transition hover:bg-acid lg:inline-flex"
         >
           Start a project
           <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
@@ -115,7 +115,7 @@ export function SiteNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto bg-ink/95 backdrop-blur-xl md:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-ink/95 backdrop-blur-xl md:hidden"
           >
             <motion.nav
               initial="hidden"
