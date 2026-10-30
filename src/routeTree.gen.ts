@@ -9,37 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ShopifyRouteImport } from './routes/shopify'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ResumeRouteImport } from './routes/resume'
-import { Route as PortfolioRouteImport } from './routes/portfolio'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ShopifyRouteImport } from './routes/shopify'
+import { Route as ShopifyEcommerceDevelopmentRouteImport } from './routes/shopify-ecommerce-development'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesAiAutomationRouteImport } from './routes/services.ai-automation'
+import { Route as ServicesDashboardPortalDevelopmentRouteImport } from './routes/services.dashboard-portal-development'
+import { Route as ServicesFullStackDevelopmentRouteImport } from './routes/services.full-stack-development'
+import { Route as ServicesHeadlessShopifyDevelopmentRouteImport } from './routes/services.headless-shopify-development'
+import { Route as ServicesSaasMvpDevelopmentRouteImport } from './routes/services.saas-mvp-development'
+import { Route as ServicesShopifyAppDevelopmentRouteImport } from './routes/services.shopify-app-development'
+import { Route as ServicesShopifyCroRouteImport } from './routes/services.shopify-cro'
+import { Route as ServicesShopifyDevelopmentRouteImport } from './routes/services.shopify-development'
+import { Route as ServicesShopifySpeedOptimizationRouteImport } from './routes/services.shopify-speed-optimization'
+import { Route as ServicesShopifyStoreDevelopmentRouteImport } from './routes/services.shopify-store-development'
+import { Route as ServicesShopifySupportRouteImport } from './routes/services.shopify-support'
+import { Route as ServicesShopifyThemeDevelopmentRouteImport } from './routes/services.shopify-theme-development'
+import { Route as ServicesWebApplicationDevelopmentRouteImport } from './routes/services.web-application-development'
+import { Route as ServicesWebScrapingRouteImport } from './routes/services.web-scraping'
+import { Route as ServicesWoocommerceDevelopmentRouteImport } from './routes/services.woocommerce-development'
+import { Route as ServicesWordpressDevelopmentRouteImport } from './routes/services.wordpress-development'
 
-const ShopifyRoute = ShopifyRouteImport.update({
-  id: '/shopify',
-  path: '/shopify',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResumeRoute = ResumeRouteImport.update({
-  id: '/resume',
-  path: '/resume',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PortfolioRoute = PortfolioRouteImport.update({
-  id: '/portfolio',
-  path: '/portfolio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -47,11 +45,134 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopifyRoute = ShopifyRouteImport.update({
+  id: '/shopify',
+  path: '/shopify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopifyEcommerceDevelopmentRoute =
+  ShopifyEcommerceDevelopmentRouteImport.update({
+    id: '/shopify-ecommerce-development',
+    path: '/shopify-ecommerce-development',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesAiAutomationRoute = ServicesAiAutomationRouteImport.update({
+  id: '/ai-automation',
+  path: '/ai-automation',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesDashboardPortalDevelopmentRoute =
+  ServicesDashboardPortalDevelopmentRouteImport.update({
+    id: '/dashboard-portal-development',
+    path: '/dashboard-portal-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesFullStackDevelopmentRoute =
+  ServicesFullStackDevelopmentRouteImport.update({
+    id: '/full-stack-development',
+    path: '/full-stack-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesHeadlessShopifyDevelopmentRoute =
+  ServicesHeadlessShopifyDevelopmentRouteImport.update({
+    id: '/headless-shopify-development',
+    path: '/headless-shopify-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesSaasMvpDevelopmentRoute =
+  ServicesSaasMvpDevelopmentRouteImport.update({
+    id: '/saas-mvp-development',
+    path: '/saas-mvp-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesShopifyAppDevelopmentRoute =
+  ServicesShopifyAppDevelopmentRouteImport.update({
+    id: '/shopify-app-development',
+    path: '/shopify-app-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesShopifyCroRoute = ServicesShopifyCroRouteImport.update({
+  id: '/shopify-cro',
+  path: '/shopify-cro',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesShopifyDevelopmentRoute =
+  ServicesShopifyDevelopmentRouteImport.update({
+    id: '/shopify-development',
+    path: '/shopify-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesShopifySpeedOptimizationRoute =
+  ServicesShopifySpeedOptimizationRouteImport.update({
+    id: '/shopify-speed-optimization',
+    path: '/shopify-speed-optimization',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesShopifyStoreDevelopmentRoute =
+  ServicesShopifyStoreDevelopmentRouteImport.update({
+    id: '/shopify-store-development',
+    path: '/shopify-store-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesShopifySupportRoute = ServicesShopifySupportRouteImport.update({
+  id: '/shopify-support',
+  path: '/shopify-support',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesShopifyThemeDevelopmentRoute =
+  ServicesShopifyThemeDevelopmentRouteImport.update({
+    id: '/shopify-theme-development',
+    path: '/shopify-theme-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesWebApplicationDevelopmentRoute =
+  ServicesWebApplicationDevelopmentRouteImport.update({
+    id: '/web-application-development',
+    path: '/web-application-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesWebScrapingRoute = ServicesWebScrapingRouteImport.update({
+  id: '/web-scraping',
+  path: '/web-scraping',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesWoocommerceDevelopmentRoute =
+  ServicesWoocommerceDevelopmentRouteImport.update({
+    id: '/woocommerce-development',
+    path: '/woocommerce-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesWordpressDevelopmentRoute =
+  ServicesWordpressDevelopmentRouteImport.update({
+    id: '/wordpress-development',
+    path: '/wordpress-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,8 +180,26 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/resume': typeof ResumeRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/shopify': typeof ShopifyRoute
+  '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
+  '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
+  '/services/headless-shopify-development': typeof ServicesHeadlessShopifyDevelopmentRoute
+  '/services/saas-mvp-development': typeof ServicesSaasMvpDevelopmentRoute
+  '/services/shopify-app-development': typeof ServicesShopifyAppDevelopmentRoute
+  '/services/shopify-cro': typeof ServicesShopifyCroRoute
+  '/services/shopify-development': typeof ServicesShopifyDevelopmentRoute
+  '/services/shopify-speed-optimization': typeof ServicesShopifySpeedOptimizationRoute
+  '/services/shopify-store-development': typeof ServicesShopifyStoreDevelopmentRoute
+  '/services/shopify-support': typeof ServicesShopifySupportRoute
+  '/services/shopify-theme-development': typeof ServicesShopifyThemeDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/services/web-scraping': typeof ServicesWebScrapingRoute
+  '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
+  '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,8 +207,25 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/resume': typeof ResumeRoute
-  '/services': typeof ServicesRoute
   '/shopify': typeof ShopifyRoute
+  '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
+  '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
+  '/services/headless-shopify-development': typeof ServicesHeadlessShopifyDevelopmentRoute
+  '/services/saas-mvp-development': typeof ServicesSaasMvpDevelopmentRoute
+  '/services/shopify-app-development': typeof ServicesShopifyAppDevelopmentRoute
+  '/services/shopify-cro': typeof ServicesShopifyCroRoute
+  '/services/shopify-development': typeof ServicesShopifyDevelopmentRoute
+  '/services/shopify-speed-optimization': typeof ServicesShopifySpeedOptimizationRoute
+  '/services/shopify-store-development': typeof ServicesShopifyStoreDevelopmentRoute
+  '/services/shopify-support': typeof ServicesShopifySupportRoute
+  '/services/shopify-theme-development': typeof ServicesShopifyThemeDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/services/web-scraping': typeof ServicesWebScrapingRoute
+  '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
+  '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,8 +234,26 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/resume': typeof ResumeRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/shopify': typeof ShopifyRoute
+  '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
+  '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
+  '/services/headless-shopify-development': typeof ServicesHeadlessShopifyDevelopmentRoute
+  '/services/saas-mvp-development': typeof ServicesSaasMvpDevelopmentRoute
+  '/services/shopify-app-development': typeof ServicesShopifyAppDevelopmentRoute
+  '/services/shopify-cro': typeof ServicesShopifyCroRoute
+  '/services/shopify-development': typeof ServicesShopifyDevelopmentRoute
+  '/services/shopify-speed-optimization': typeof ServicesShopifySpeedOptimizationRoute
+  '/services/shopify-store-development': typeof ServicesShopifyStoreDevelopmentRoute
+  '/services/shopify-support': typeof ServicesShopifySupportRoute
+  '/services/shopify-theme-development': typeof ServicesShopifyThemeDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/services/web-scraping': typeof ServicesWebScrapingRoute
+  '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
+  '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +265,24 @@ export interface FileRouteTypes {
     | '/resume'
     | '/services'
     | '/shopify'
+    | '/shopify-ecommerce-development'
+    | '/services/ai-automation'
+    | '/services/dashboard-portal-development'
+    | '/services/full-stack-development'
+    | '/services/headless-shopify-development'
+    | '/services/saas-mvp-development'
+    | '/services/shopify-app-development'
+    | '/services/shopify-cro'
+    | '/services/shopify-development'
+    | '/services/shopify-speed-optimization'
+    | '/services/shopify-store-development'
+    | '/services/shopify-support'
+    | '/services/shopify-theme-development'
+    | '/services/web-application-development'
+    | '/services/web-scraping'
+    | '/services/woocommerce-development'
+    | '/services/wordpress-development'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,8 +290,25 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/resume'
-    | '/services'
     | '/shopify'
+    | '/shopify-ecommerce-development'
+    | '/services/ai-automation'
+    | '/services/dashboard-portal-development'
+    | '/services/full-stack-development'
+    | '/services/headless-shopify-development'
+    | '/services/saas-mvp-development'
+    | '/services/shopify-app-development'
+    | '/services/shopify-cro'
+    | '/services/shopify-development'
+    | '/services/shopify-speed-optimization'
+    | '/services/shopify-store-development'
+    | '/services/shopify-support'
+    | '/services/shopify-theme-development'
+    | '/services/web-application-development'
+    | '/services/web-scraping'
+    | '/services/woocommerce-development'
+    | '/services/wordpress-development'
+    | '/services'
   id:
     | '__root__'
     | '/'
@@ -109,6 +318,24 @@ export interface FileRouteTypes {
     | '/resume'
     | '/services'
     | '/shopify'
+    | '/shopify-ecommerce-development'
+    | '/services/ai-automation'
+    | '/services/dashboard-portal-development'
+    | '/services/full-stack-development'
+    | '/services/headless-shopify-development'
+    | '/services/saas-mvp-development'
+    | '/services/shopify-app-development'
+    | '/services/shopify-cro'
+    | '/services/shopify-development'
+    | '/services/shopify-speed-optimization'
+    | '/services/shopify-store-development'
+    | '/services/shopify-support'
+    | '/services/shopify-theme-development'
+    | '/services/web-application-development'
+    | '/services/web-scraping'
+    | '/services/woocommerce-development'
+    | '/services/wordpress-development'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,45 +344,18 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PortfolioRoute: typeof PortfolioRoute
   ResumeRoute: typeof ResumeRoute
-  ServicesRoute: typeof ServicesRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
   ShopifyRoute: typeof ShopifyRoute
+  ShopifyEcommerceDevelopmentRoute: typeof ShopifyEcommerceDevelopmentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/shopify': {
-      id: '/shopify'
-      path: '/shopify'
-      fullPath: '/shopify'
-      preLoaderRoute: typeof ShopifyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resume': {
-      id: '/resume'
-      path: '/resume'
-      fullPath: '/resume'
-      preLoaderRoute: typeof ResumeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/portfolio': {
-      id: '/portfolio'
-      path: '/portfolio'
-      fullPath: '/portfolio'
-      preLoaderRoute: typeof PortfolioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -165,15 +365,216 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shopify': {
+      id: '/shopify'
+      path: '/shopify'
+      fullPath: '/shopify'
+      preLoaderRoute: typeof ShopifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shopify-ecommerce-development': {
+      id: '/shopify-ecommerce-development'
+      path: '/shopify-ecommerce-development'
+      fullPath: '/shopify-ecommerce-development'
+      preLoaderRoute: typeof ShopifyEcommerceDevelopmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/ai-automation': {
+      id: '/services/ai-automation'
+      path: '/ai-automation'
+      fullPath: '/services/ai-automation'
+      preLoaderRoute: typeof ServicesAiAutomationRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/dashboard-portal-development': {
+      id: '/services/dashboard-portal-development'
+      path: '/dashboard-portal-development'
+      fullPath: '/services/dashboard-portal-development'
+      preLoaderRoute: typeof ServicesDashboardPortalDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/full-stack-development': {
+      id: '/services/full-stack-development'
+      path: '/full-stack-development'
+      fullPath: '/services/full-stack-development'
+      preLoaderRoute: typeof ServicesFullStackDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/headless-shopify-development': {
+      id: '/services/headless-shopify-development'
+      path: '/headless-shopify-development'
+      fullPath: '/services/headless-shopify-development'
+      preLoaderRoute: typeof ServicesHeadlessShopifyDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/saas-mvp-development': {
+      id: '/services/saas-mvp-development'
+      path: '/saas-mvp-development'
+      fullPath: '/services/saas-mvp-development'
+      preLoaderRoute: typeof ServicesSaasMvpDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-app-development': {
+      id: '/services/shopify-app-development'
+      path: '/shopify-app-development'
+      fullPath: '/services/shopify-app-development'
+      preLoaderRoute: typeof ServicesShopifyAppDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-cro': {
+      id: '/services/shopify-cro'
+      path: '/shopify-cro'
+      fullPath: '/services/shopify-cro'
+      preLoaderRoute: typeof ServicesShopifyCroRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-development': {
+      id: '/services/shopify-development'
+      path: '/shopify-development'
+      fullPath: '/services/shopify-development'
+      preLoaderRoute: typeof ServicesShopifyDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-speed-optimization': {
+      id: '/services/shopify-speed-optimization'
+      path: '/shopify-speed-optimization'
+      fullPath: '/services/shopify-speed-optimization'
+      preLoaderRoute: typeof ServicesShopifySpeedOptimizationRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-store-development': {
+      id: '/services/shopify-store-development'
+      path: '/shopify-store-development'
+      fullPath: '/services/shopify-store-development'
+      preLoaderRoute: typeof ServicesShopifyStoreDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-support': {
+      id: '/services/shopify-support'
+      path: '/shopify-support'
+      fullPath: '/services/shopify-support'
+      preLoaderRoute: typeof ServicesShopifySupportRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/shopify-theme-development': {
+      id: '/services/shopify-theme-development'
+      path: '/shopify-theme-development'
+      fullPath: '/services/shopify-theme-development'
+      preLoaderRoute: typeof ServicesShopifyThemeDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/web-application-development': {
+      id: '/services/web-application-development'
+      path: '/web-application-development'
+      fullPath: '/services/web-application-development'
+      preLoaderRoute: typeof ServicesWebApplicationDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/web-scraping': {
+      id: '/services/web-scraping'
+      path: '/web-scraping'
+      fullPath: '/services/web-scraping'
+      preLoaderRoute: typeof ServicesWebScrapingRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/woocommerce-development': {
+      id: '/services/woocommerce-development'
+      path: '/woocommerce-development'
+      fullPath: '/services/woocommerce-development'
+      preLoaderRoute: typeof ServicesWoocommerceDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/wordpress-development': {
+      id: '/services/wordpress-development'
+      path: '/wordpress-development'
+      fullPath: '/services/wordpress-development'
+      preLoaderRoute: typeof ServicesWordpressDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
     }
   }
 }
+
+interface ServicesRouteChildren {
+  ServicesAiAutomationRoute: typeof ServicesAiAutomationRoute
+  ServicesDashboardPortalDevelopmentRoute: typeof ServicesDashboardPortalDevelopmentRoute
+  ServicesFullStackDevelopmentRoute: typeof ServicesFullStackDevelopmentRoute
+  ServicesHeadlessShopifyDevelopmentRoute: typeof ServicesHeadlessShopifyDevelopmentRoute
+  ServicesSaasMvpDevelopmentRoute: typeof ServicesSaasMvpDevelopmentRoute
+  ServicesShopifyAppDevelopmentRoute: typeof ServicesShopifyAppDevelopmentRoute
+  ServicesShopifyCroRoute: typeof ServicesShopifyCroRoute
+  ServicesShopifyDevelopmentRoute: typeof ServicesShopifyDevelopmentRoute
+  ServicesShopifySpeedOptimizationRoute: typeof ServicesShopifySpeedOptimizationRoute
+  ServicesShopifyStoreDevelopmentRoute: typeof ServicesShopifyStoreDevelopmentRoute
+  ServicesShopifySupportRoute: typeof ServicesShopifySupportRoute
+  ServicesShopifyThemeDevelopmentRoute: typeof ServicesShopifyThemeDevelopmentRoute
+  ServicesWebApplicationDevelopmentRoute: typeof ServicesWebApplicationDevelopmentRoute
+  ServicesWebScrapingRoute: typeof ServicesWebScrapingRoute
+  ServicesWoocommerceDevelopmentRoute: typeof ServicesWoocommerceDevelopmentRoute
+  ServicesWordpressDevelopmentRoute: typeof ServicesWordpressDevelopmentRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesAiAutomationRoute: ServicesAiAutomationRoute,
+  ServicesDashboardPortalDevelopmentRoute:
+    ServicesDashboardPortalDevelopmentRoute,
+  ServicesFullStackDevelopmentRoute: ServicesFullStackDevelopmentRoute,
+  ServicesHeadlessShopifyDevelopmentRoute:
+    ServicesHeadlessShopifyDevelopmentRoute,
+  ServicesSaasMvpDevelopmentRoute: ServicesSaasMvpDevelopmentRoute,
+  ServicesShopifyAppDevelopmentRoute: ServicesShopifyAppDevelopmentRoute,
+  ServicesShopifyCroRoute: ServicesShopifyCroRoute,
+  ServicesShopifyDevelopmentRoute: ServicesShopifyDevelopmentRoute,
+  ServicesShopifySpeedOptimizationRoute: ServicesShopifySpeedOptimizationRoute,
+  ServicesShopifyStoreDevelopmentRoute: ServicesShopifyStoreDevelopmentRoute,
+  ServicesShopifySupportRoute: ServicesShopifySupportRoute,
+  ServicesShopifyThemeDevelopmentRoute: ServicesShopifyThemeDevelopmentRoute,
+  ServicesWebApplicationDevelopmentRoute:
+    ServicesWebApplicationDevelopmentRoute,
+  ServicesWebScrapingRoute: ServicesWebScrapingRoute,
+  ServicesWoocommerceDevelopmentRoute: ServicesWoocommerceDevelopmentRoute,
+  ServicesWordpressDevelopmentRoute: ServicesWordpressDevelopmentRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -181,9 +582,20 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PortfolioRoute: PortfolioRoute,
   ResumeRoute: ResumeRoute,
-  ServicesRoute: ServicesRoute,
+  ServicesRoute: ServicesRouteWithChildren,
   ShopifyRoute: ShopifyRoute,
+  ShopifyEcommerceDevelopmentRoute: ShopifyEcommerceDevelopmentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

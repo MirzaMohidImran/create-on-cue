@@ -34,7 +34,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -78,10 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Mohid Imran — Full Stack Engineer, Shopify Expert & AI Automation" },
-      { name: "description", content: "Mohid Imran builds high-performance Shopify stores, full stack platforms and AI automation systems for ecommerce brands, SaaS teams and agencies worldwide." },
+      {
+        name: "description",
+        content:
+          "Mohid Imran builds high-performance Shopify stores, full stack platforms and AI automation systems for ecommerce brands, SaaS teams and agencies worldwide.",
+      },
       { name: "author", content: "Mohid Imran" },
       { property: "og:title", content: "Mohid Imran — Full Stack Engineer & Shopify Expert" },
-      { property: "og:description", content: "3+ years, 100+ projects. Shopify, headless commerce, full stack engineering and AI automation for premium brands." },
+      {
+        property: "og:description",
+        content:
+          "3+ years, 100+ projects. Shopify, headless commerce, full stack engineering and AI automation for premium brands.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -93,7 +101,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

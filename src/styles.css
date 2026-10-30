@@ -15,6 +15,34 @@
   --color-mist: oklch(0.55 0.02 260);
 }
 
+.service-faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  opacity: 0;
+  transition:
+    block-size 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    content-visibility 500ms allow-discrete,
+    opacity 350ms ease;
+}
+
+.service-faq[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shopify-motion {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .service-faq::details-content {
+    transition: none;
+  }
+}
+
 @utility text-balance {
   text-wrap: balance;
 }

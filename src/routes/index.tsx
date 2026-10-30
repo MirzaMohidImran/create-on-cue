@@ -1,9 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { motion, AnimatePresence, useMotionValue, useMotionValueEvent, useSpring, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useMotionValueEvent,
+  useSpring,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SiteShell, Marquee } from "@/components/site/shell";
-import { ProfessionalExperience } from "@/components/site/experience";
+import { CompanyLogos } from "@/components/site/company-logos";
+import { ClientProjectLogos } from "@/components/site/client-project-logos";
+import { getMainServices } from "@/lib/services-catalog";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -13,10 +23,22 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
-      <Marquee items={["Shopify Plus", "Headless Commerce", "AI Automation", "Full Stack", "Django", "Performance", "CRO", "Django · React · Next"]} />
+      <Marquee
+        items={[
+          "Shopify Plus",
+          "Headless Commerce",
+          "AI Automation",
+          "Full Stack",
+          "Django",
+          "Performance",
+          "CRO",
+          "Django · React · Next",
+        ]}
+      />
       <Intro />
       <Capabilities />
-      <ProfessionalExperience />
+      <CompanyLogos />
+      <ClientProjectLogos />
       <FeaturedWork />
       <Process />
       <TechStack />
@@ -37,15 +59,6 @@ function Hero() {
   const ty = useTransform(sy, (v) => (v - 0.5) * 40);
   const tx2 = useTransform(sx, (v) => (v - 0.5) * -80);
   const ty2 = useTransform(sy, (v) => (v - 0.5) * -60);
-
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    const tick = () =>
-      setTime(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" }).format(new Date()));
-    tick();
-    const i = setInterval(tick, 30000);
-    return () => clearInterval(i);
-  }, []);
 
   return (
     <section
@@ -79,27 +92,26 @@ function Hero() {
       />
 
       {/* meta rail */}
-      <div className="relative flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
-        <span>N 33.68° · E 73.04°</span>
+      <div className="relative flex items-center justify-end font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
         <span className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-acid" />
-          Available · Karachi {time}
+          Available for Projects · Worldwide
         </span>
       </div>
 
       <div className="relative mt-auto grid flex-1 grid-cols-12 items-end gap-8 pb-14 pt-20">
         <div className="col-span-12 md:col-span-9">
           <RevealWords
-            text="Full stack engineering,"
+            text="Shopify engineering,"
             className="font-serif text-[13vw] italic leading-[0.9] tracking-tight text-bone md:text-[9vw]"
           />
           <RevealWords
-            text="Shopify craft,"
+            text="AI automation,"
             delay={0.15}
             className="mt-2 font-display text-[13vw] leading-[0.9] tracking-tight text-bone md:text-[9vw]"
           />
           <RevealWords
-            text="AI automation."
+            text="Full-stack systems."
             delay={0.3}
             className="mt-2 font-display text-[13vw] leading-[0.9] tracking-tight text-acid md:text-[9vw]"
           />
@@ -111,13 +123,17 @@ function Hero() {
           className="col-span-12 space-y-6 md:col-span-3"
         >
           <p className="text-balance text-sm leading-relaxed text-bone/70">
-            I&apos;m <span className="text-bone">Mohid Imran</span> — an independent engineer
-            partnering with ecommerce brands, SaaS teams and agencies to ship
-            revenue-shaped software that actually loads fast.
+            I&apos;m <span className="text-bone">Mohid Imran</span>, an independent developer
+            helping ecommerce brands, SaaS companies, and agencies build high-converting Shopify
+            stores, intelligent automations, and scalable web applications.
           </p>
           <div className="flex flex-wrap gap-3">
-            <MagneticLink to="/portfolio" variant="light">See the work</MagneticLink>
-            <MagneticLink to="/contact" variant="ghost">Book a call</MagneticLink>
+            <MagneticLink to="/portfolio" variant="light">
+              View My Work
+            </MagneticLink>
+            <MagneticLink to="/contact" variant="ghost">
+              Book a call
+            </MagneticLink>
           </div>
         </motion.div>
       </div>
@@ -132,7 +148,9 @@ function Hero() {
         ].map(([n, l]) => (
           <div key={l} className="flex flex-col">
             <Counter value={n} />
-            <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-mist">{l}</span>
+            <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-mist">
+              {l}
+            </span>
           </div>
         ))}
       </div>
@@ -154,7 +172,15 @@ function Counter({ value }: { value: string }) {
   );
 }
 
-function RevealWords({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
+function RevealWords({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
   const words = text.split(" ");
   return (
     <h1 className={className}>
@@ -225,14 +251,23 @@ function Intro() {
         </div>
         <div className="col-span-12 md:col-span-9">
           <RevealWords
-            text="I build the systems behind stores that convert, tools that automate the busywork, and interfaces people actually enjoy."
+            text="I build ecommerce experiences that convert, automation that saves time, and scalable software that supports business growth."
             className="font-serif text-3xl italic leading-[1.1] tracking-tight text-ink md:text-6xl"
           />
           <div className="mt-16 grid gap-10 md:grid-cols-3">
             {[
-              { k: "Ecommerce", v: "Shopify Plus, headless storefronts, custom apps, checkout extensibility." },
-              { k: "Software", v: "Python/Django, Node, React, Next.js — durable products with proper tests." },
-              { k: "Automation", v: "AI agents, chatbots, scrapers, and internal tools that save real hours." },
+              {
+                k: "Shopify & Ecommerce",
+                v: "Custom Shopify stores, Shopify Plus solutions, headless commerce, checkout development, and performance optimization.",
+              },
+              {
+                k: "Full-Stack Applications",
+                v: "Scalable SaaS platforms, business portals, dashboards, and internal tools built with Django, Node.js, React, and Next.js.",
+              },
+              {
+                k: "AI Automation",
+                v: "AI agents, intelligent chatbots, workflow automation, web scraping, and integrations that reduce manual work.",
+              },
             ].map((c, i) => (
               <motion.div
                 key={c.k}
@@ -254,82 +289,69 @@ function Intro() {
 }
 
 /* ————————————— CAPABILITIES ————————————— */
-const services = [
-  {
-    n: "01",
-    t: "Shopify & Shopify Plus",
-    d: "Themes, custom apps, checkout UI extensions, and B2B setups engineered around conversion and AOV.",
-    tags: ["Liquid", "Hydrogen", "Functions", "Checkout UI"],
-  },
-  {
-    n: "02",
-    t: "Headless Commerce",
-    d: "Next.js + Storefront API storefronts with edge caching, Sanity/Contentful, and lightning first paint.",
-    tags: ["Next.js", "Storefront API", "Sanity", "Edge"],
-  },
-  {
-    n: "03",
-    t: "Full Stack Engineering",
-    d: "Django, Node, Postgres. Business apps, dashboards, internal tools — with the boring parts done right.",
-    tags: ["Django", "Node", "Postgres", "REST"],
-  },
-  {
-    n: "04",
-    t: "AI Automation",
-    d: "Chatbots, agentic workflows, RAG pipelines and process automation wired into your existing stack.",
-    tags: ["OpenAI", "LangChain", "n8n", "Vector"],
-  },
-  {
-    n: "05",
-    t: "Web Scraping & Data",
-    d: "Resilient scrapers, ETL and enrichment pipelines feeding CRMs, dashboards and market intelligence.",
-    tags: ["Playwright", "Scrapy", "ETL"],
-  },
-  {
-    n: "06",
-    t: "Performance & CRO",
-    d: "Core Web Vitals rescues, funnel instrumentation and experimentation that lifts revenue per session.",
-    tags: ["CWV", "GA4", "A/B", "Lighthouse"],
-  },
-];
-
 function Capabilities() {
+  const services = getMainServices();
+
   return (
     <section className="relative overflow-hidden bg-ink px-6 py-32 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex items-end justify-between gap-8">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 03 — Capabilities</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+              / 03 — Capabilities
+            </p>
             <h2 className="mt-6 max-w-3xl font-display text-5xl leading-[0.95] tracking-tight md:text-7xl">
-              A studio-sized toolkit, <span className="font-serif italic text-acid">shipped solo</span>.
+              Six core services,
+              <br />
+              <span className="font-serif italic text-acid">one accountable partner.</span>
             </h2>
           </div>
-          <Link to="/services" className="hidden shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.24em] text-mist hover:text-acid md:inline-flex">
+          <Link
+            to="/services"
+            className="hidden shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.24em] text-mist hover:text-acid md:inline-flex"
+          >
             All services →
           </Link>
         </div>
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 md:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 md:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <motion.div
-              key={s.n}
+              key={s.slug}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: (i % 3) * 0.08, duration: 0.6 }}
-              className="group relative overflow-hidden bg-ink p-8 transition-colors hover:bg-bone hover:text-ink md:p-10"
+              className="group relative flex min-h-[22rem] flex-col overflow-hidden bg-ink p-8 transition-colors hover:bg-bone hover:text-ink md:p-10"
             >
               <div className="flex items-start justify-between">
-                <span className="font-mono text-xs uppercase tracking-[0.24em] opacity-60">{s.n}</span>
+                <span className="font-mono text-xs uppercase tracking-[0.24em] opacity-60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <span className="font-serif text-3xl italic text-acid">✦</span>
               </div>
-              <h3 className="mt-24 font-display text-2xl tracking-tight md:text-3xl">{s.t}</h3>
-              <p className="mt-4 text-sm leading-relaxed opacity-70">{s.d}</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {s.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-current/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] opacity-70">
-                    {t}
-                  </span>
-                ))}
+              <div className="mt-auto pt-16">
+                <h3 className="font-display text-2xl tracking-tight md:text-3xl">{s.title}</h3>
+                {s.lead ? (
+                  <p className="mt-4 text-sm leading-relaxed opacity-70">{s.lead}</p>
+                ) : null}
+                {s.stack?.length ? (
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {s.stack.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-current/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] opacity-70"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+                <Link
+                  to={s.path}
+                  className="mt-8 inline-flex items-center gap-2 border-b border-current/30 pb-1 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors hover:text-acid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-acid"
+                >
+                  {s.slug === "shopify-development" ? "Explore Shopify development →" : "Explore →"}
+                </Link>
               </div>
             </motion.div>
           ))}
@@ -393,12 +415,17 @@ function FeaturedWork() {
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
         <div className="flex items-end justify-between px-6 pt-24 md:px-10">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 04 — Selected Work</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+              / 06 — Selected Work
+            </p>
             <h2 className="mt-4 font-serif text-4xl italic leading-none md:text-6xl">
               Objects in the wild.
             </h2>
           </div>
-          <Link to="/portfolio" className="hidden items-center gap-2 border-b border-ink pb-1 font-display text-sm hover:text-flame md:inline-flex">
+          <Link
+            to="/portfolio"
+            className="hidden items-center gap-2 border-b border-ink pb-1 font-display text-sm hover:text-flame md:inline-flex"
+          >
             Full index →
           </Link>
         </div>
@@ -428,7 +455,9 @@ function FeaturedWork() {
                 />
                 <div className="absolute inset-x-8 top-8 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.24em] text-ink md:inset-x-12 md:top-12">
                   <span>{featured[active].kind}</span>
-                  <span>{featured[active].n} / 0{featured.length}</span>
+                  <span>
+                    {featured[active].n} / 0{featured.length}
+                  </span>
                 </div>
                 <div className="absolute inset-x-8 bottom-8 md:inset-x-12 md:bottom-12">
                   <div className="font-serif text-5xl italic leading-none text-ink md:text-8xl">
@@ -454,10 +483,14 @@ function FeaturedWork() {
                   >
                     <div className="flex items-center justify-between gap-4 px-5 py-4">
                       <div className="flex items-center gap-4">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] opacity-70">{p.n}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.24em] opacity-70">
+                          {p.n}
+                        </span>
                         <span className="font-serif text-2xl italic md:text-3xl">{p.title}</span>
                       </div>
-                      <span className={`font-mono text-[10px] uppercase tracking-[0.24em] ${isActive ? "text-acid" : "opacity-60"}`}>
+                      <span
+                        className={`font-mono text-[10px] uppercase tracking-[0.24em] ${isActive ? "text-acid" : "opacity-60"}`}
+                      >
                         {p.metric}
                       </span>
                     </div>
@@ -474,7 +507,9 @@ function FeaturedWork() {
             </ol>
             <div className="mt-8 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
               <span>Scroll to advance</span>
-              <Link to="/portfolio" className="text-ink hover:text-flame">Enter gallery →</Link>
+              <Link to="/portfolio" className="text-ink hover:text-flame">
+                Enter gallery →
+              </Link>
             </div>
           </div>
         </div>
@@ -485,10 +520,26 @@ function FeaturedWork() {
 
 /* ————————————— PROCESS ————————————— */
 const steps = [
-  { n: "01", t: "Discover", d: "We map the problem, the constraints, and the number to move. No fluff decks." },
-  { n: "02", t: "Architect", d: "Data model, integrations, edge cases. A concrete plan you can actually cost." },
-  { n: "03", t: "Build", d: "Weekly async loops, staging from day one, and code you can hand to any team later." },
-  { n: "04", t: "Ship & tune", d: "Launch, monitor, iterate. Real metrics — CWV, conversion, revenue per visitor." },
+  {
+    n: "01",
+    t: "Discover",
+    d: "We discuss your goals, challenges, users, and the business results you want to achieve.",
+  },
+  {
+    n: "02",
+    t: "Plan",
+    d: "I define the project scope, technical approach, integrations, timeline, and clear deliverables.",
+  },
+  {
+    n: "03",
+    t: "Build",
+    d: "Your solution is developed, tested, and shared through regular progress updates and a staging environment.",
+  },
+  {
+    n: "04",
+    t: "Launch & Improve",
+    d: "After launch, I monitor performance, resolve issues, and improve speed, conversions, and user experience.",
+  },
 ];
 
 function Process() {
@@ -497,9 +548,13 @@ function Process() {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-4">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 05 — Process</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+              / 07 — Process
+            </p>
             <h2 className="mt-6 font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
-              A four-step loop.<br /><span className="font-serif italic text-acid">No theatre.</span>
+              A clear four-step process.
+              <br />
+              <span className="font-serif italic text-acid">No unnecessary complexity.</span>
             </h2>
           </div>
           <ol className="col-span-12 space-y-6 md:col-span-8">
@@ -512,10 +567,16 @@ function Process() {
                 transition={{ delay: i * 0.08, duration: 0.6 }}
                 className="group grid grid-cols-12 items-center gap-4 border-t border-white/10 py-6 transition-colors hover:border-acid"
               >
-                <span className="col-span-2 font-mono text-xs uppercase tracking-[0.24em] text-mist md:col-span-1">{s.n}</span>
-                <span className="col-span-10 font-serif text-3xl italic tracking-tight md:col-span-3 md:text-4xl">{s.t}</span>
+                <span className="col-span-2 font-mono text-xs uppercase tracking-[0.24em] text-mist md:col-span-1">
+                  {s.n}
+                </span>
+                <span className="col-span-10 font-serif text-3xl italic tracking-tight md:col-span-3 md:text-4xl">
+                  {s.t}
+                </span>
                 <span className="col-span-12 text-sm text-bone/70 md:col-span-7">{s.d}</span>
-                <span className="col-span-12 hidden text-right font-serif text-2xl italic text-acid md:col-span-1 md:block">✦</span>
+                <span className="col-span-12 hidden text-right font-serif text-2xl italic text-acid md:col-span-1 md:block">
+                  ✦
+                </span>
               </motion.li>
             ))}
           </ol>
@@ -528,15 +589,33 @@ function Process() {
 /* ————————————— TECH ————————————— */
 function TechStack() {
   const tech = [
-    "React", "Next.js", "TypeScript", "Tailwind", "Framer Motion",
-    "Shopify", "Hydrogen", "Liquid", "Node", "Django",
-    "Python", "Postgres", "Redis", "OpenAI", "LangChain",
-    "Playwright", "n8n", "Vercel", "Cloudflare", "Sanity",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind",
+    "Framer Motion",
+    "Shopify",
+    "Hydrogen",
+    "Liquid",
+    "Node",
+    "Django",
+    "Python",
+    "Postgres",
+    "Redis",
+    "OpenAI",
+    "LangChain",
+    "Playwright",
+    "n8n",
+    "Vercel",
+    "Cloudflare",
+    "Sanity",
   ];
   return (
     <section className="border-y border-white/10 bg-ink px-6 py-24 md:px-10">
       <div className="mx-auto max-w-[1400px]">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 06 — Instruments</p>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+          / 08 — Instruments
+        </p>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4 font-display text-3xl tracking-tight text-bone/60 md:text-5xl">
           {tech.map((t, i) => (
             <motion.span
@@ -614,7 +693,7 @@ const signals: Signal[] = [
 const stats = [
   { value: 100, suffix: "+", label: "Projects delivered" },
   { value: 3, suffix: "+", label: "Years in the trenches" },
-  { value: 12, suffix: "", label: "Countries billed from" },
+  { value: 24, suffix: "", label: "Countries billed from" },
   { value: 94, suffix: "%", label: "Retainer renewal rate" },
 ];
 
@@ -642,7 +721,7 @@ function SignalCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -655,14 +734,26 @@ function SignalCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
   );
 }
 
-function SignalCard({ s, index, progress }: { s: Signal; index: number; progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+function SignalCard({
+  s,
+  index,
+  progress,
+}: {
+  s: Signal;
+  index: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+}) {
   // each card occupies a slice of the pinned scroll
   const slice = 1 / signals.length;
   const start = index * slice;
   const end = start + slice;
   const mid = start + slice * 0.55;
 
-  const opacity = useTransform(progress, [start, start + slice * 0.15, end - slice * 0.1, end], [0, 1, 1, 0]);
+  const opacity = useTransform(
+    progress,
+    [start, start + slice * 0.15, end - slice * 0.1, end],
+    [0, 1, 1, 0],
+  );
   const y = useTransform(progress, [start, mid, end], [80, 0, -80]);
   const scale = useTransform(progress, [start, mid, end], [0.94, 1, 0.96]);
   const blur = useTransform(progress, [start, mid, end], [12, 0, 8]);
@@ -708,7 +799,9 @@ function SignalCard({ s, index, progress }: { s: Signal; index: number; progress
           animate={{ opacity: hover ? 1 : 0.55 }}
           transition={{ duration: 0.6 }}
           className="pointer-events-none absolute -inset-40 -z-10"
-          style={{ background: `radial-gradient(500px circle at 30% 20%, ${s.tint}, transparent 60%)` }}
+          style={{
+            background: `radial-gradient(500px circle at 30% 20%, ${s.tint}, transparent 60%)`,
+          }}
         />
         {/* animated border */}
         <span
@@ -729,7 +822,9 @@ function SignalCard({ s, index, progress }: { s: Signal; index: number; progress
         </div>
 
         <blockquote className="mt-8 font-serif text-[26px] italic leading-[1.15] text-ink md:text-[44px]">
-          <span aria-hidden className="mr-2 -ml-2 align-top text-acid">“</span>
+          <span aria-hidden className="mr-2 -ml-2 align-top text-acid">
+            “
+          </span>
           {parts[0]}
           <span className="relative inline">
             <span className="relative z-10">{s.highlight}</span>
@@ -744,7 +839,9 @@ function SignalCard({ s, index, progress }: { s: Signal; index: number; progress
             />
           </span>
           {parts[1]}
-          <span aria-hidden className="ml-1 align-top text-acid">”</span>
+          <span aria-hidden className="ml-1 align-top text-acid">
+            ”
+          </span>
         </blockquote>
 
         <figcaption className="mt-10 flex flex-wrap items-end justify-between gap-6">
@@ -763,8 +860,12 @@ function SignalCard({ s, index, progress }: { s: Signal; index: number; progress
             </div>
           </div>
           <div className="text-right">
-            <div className="font-serif text-3xl italic leading-none text-ink md:text-4xl">{s.metric.value}</div>
-            <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{s.metric.label}</div>
+            <div className="font-serif text-3xl italic leading-none text-ink md:text-4xl">
+              {s.metric.value}
+            </div>
+            <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+              {s.metric.label}
+            </div>
           </div>
         </figcaption>
       </motion.div>
@@ -781,7 +882,9 @@ function Testimonials() {
   const bgX2 = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
   const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
   const headerOpacity = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [1, 1, 0.15, 0]);
-  const indexActive = useTransform(scrollYProgress, (v) => Math.min(signals.length - 1, Math.floor(v * signals.length)));
+  const indexActive = useTransform(scrollYProgress, (v) =>
+    Math.min(signals.length - 1, Math.floor(v * signals.length)),
+  );
   const [active, setActive] = useState(0);
   useMotionValueEvent(indexActive, "change", (v) => setActive(v as number));
 
@@ -854,15 +957,18 @@ function Testimonials() {
           className="relative z-10 flex items-start justify-between gap-6 px-6 pt-28 md:px-14 md:pt-24"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 07 — Signal</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 09 — Signal</p>
             <h2 className="mt-5 max-w-[9ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
-              What the<br />
+              What the
+              <br />
               <span className="text-acid">receipts</span> say.
             </h2>
           </div>
           <div className="hidden max-w-xs text-right md:block">
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
-              Unedited excerpts from<br />operators who signed the PO.
+              Unedited excerpts from
+              <br />
+              operators who signed the PO.
             </p>
           </div>
         </motion.header>
@@ -880,7 +986,8 @@ function Testimonials() {
                 <motion.span
                   animate={{
                     width: active === i ? 44 : 18,
-                    backgroundColor: active === i ? "oklch(0.14 0.01 260)" : "oklch(0.14 0.01 260 / 0.25)",
+                    backgroundColor:
+                      active === i ? "oklch(0.14 0.01 260)" : "oklch(0.14 0.01 260 / 0.25)",
                   }}
                   transition={{ duration: 0.4 }}
                   className="h-px"
@@ -904,7 +1011,9 @@ function Testimonials() {
               <span className="font-serif text-4xl italic leading-none text-ink md:text-5xl">
                 <SignalCounter to={st.value} suffix={st.suffix} />
               </span>
-              <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{st.label}</span>
+              <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+                {st.label}
+              </span>
             </div>
           ))}
         </div>
@@ -926,13 +1035,22 @@ function ClosingCTA() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.86_0.19_105_/_0.25),transparent_70%)] blur-3xl"
       />
       <div className="relative mx-auto max-w-[1400px] text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 09 — Next</p>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 11 — Next</p>
         <h2 className="mx-auto mt-8 max-w-5xl font-serif text-6xl italic leading-[0.95] tracking-tight md:text-[9vw]">
-          Have a problem<br />worth <span className="text-acid">shipping?</span>
+          Have a project
+          <br />
+          ready to <span className="text-acid">grow?</span>
         </h2>
+        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-bone/70 md:text-lg">
+          Let&apos;s build a faster, smarter, and more scalable solution for your business.
+        </p>
         <div className="mt-12 flex justify-center gap-3">
-          <MagneticLink to="/contact" variant="light">Start a project</MagneticLink>
-          <MagneticLink to="/resume" variant="ghost">View resume</MagneticLink>
+          <MagneticLink to="/contact" variant="light">
+            Start a project
+          </MagneticLink>
+          <MagneticLink to="/portfolio" variant="ghost">
+            View My Work
+          </MagneticLink>
         </div>
       </div>
     </section>
@@ -942,48 +1060,58 @@ function ClosingCTA() {
 /* ————————————— FAQ + CONTACT ————————————— */
 const faqs = [
   {
-    q: "How long does a project take?",
-    a: "Most engagements land between 2 and 8 weeks. A tuned Shopify storefront ships in 10–14 days; a headless build or AI agent is usually 4–8. You get a fixed timeline before we sign anything.",
-    tag: "Timeline",
+    q: "What types of projects do you work on?",
+    a: "I build Shopify and ecommerce stores, AI automation systems, and full-stack web applications for growing brands, SaaS companies, and agencies.",
+    tag: "Projects",
   },
   {
     q: "Do you work with international clients?",
-    a: "Yes — currently billing from 12 countries across North America, EU, GCC and APAC. I run on your working hours, with async loom updates end-of-day and one live call per week.",
+    a: "Yes. I work remotely with clients across the US, UK, Europe, Australia, Canada, the GCC, and other international markets.",
     tag: "Global",
   },
   {
-    q: "Can you build custom Shopify apps?",
-    a: "Private and public apps, checkout extensions, Shopify Functions, Hydrogen storefronts. Everything shipped with TypeScript, tests and a proper CI pipeline — not a cobbled Liquid hack.",
+    q: "Can you improve an existing Shopify store?",
+    a: "Yes. I can improve its design, user experience, speed, checkout, functionality, and conversion performance without rebuilding everything unnecessarily.",
     tag: "Shopify",
   },
   {
-    q: "Do you offer AI automation?",
-    a: "Yes. Support agents, sales copilots, RAG over internal docs, workflow automations across Slack/Notion/HubSpot. Usually cuts a full contractor-line-item within the first quarter.",
+    q: "Do you build custom AI automation?",
+    a: "Yes. I develop AI agents, chatbots, RAG systems, automated workflows, web-scraping tools, and integrations based on your existing processes.",
     tag: "AI",
   },
   {
-    q: "Can you improve an existing website?",
-    a: "Often the highest-ROI option. I start with a paid audit (Core Web Vitals, checkout funnel, code health) then execute the fixes. Most rescues recover LCP under 2.0s in the first week.",
-    tag: "Rescue",
+    q: "Can you build a custom web application?",
+    a: "Yes. I build SaaS platforms, dashboards, B2B portals, internal tools, APIs, and scalable business applications.",
+    tag: "Applications",
   },
   {
-    q: "Do you provide long-term support?",
-    a: "Retainers from 20h/month upward — 94% renewal rate. You get a shared Linear board, weekly ship notes, and priority Slack. Cancel any month, no lock-in.",
-    tag: "Retainer",
+    q: "How long does a project take?",
+    a: "Most projects take between 2 and 8 weeks. The final timeline depends on the scope, integrations, complexity, and required testing.",
+    tag: "Timeline",
   },
   {
-    q: "What technologies do you work with?",
-    a: "Django, Next.js, TanStack, Shopify Plus / Hydrogen, Postgres, Supabase, tRPC, Cloudflare Workers, OpenAI / Anthropic / open-source LLMs. Pragmatic first, hype-driven never.",
-    tag: "Stack",
+    q: "Do you provide ongoing support?",
+    a: "Yes. Ongoing development, maintenance, performance monitoring, and improvement plans are available after launch.",
+    tag: "Support",
   },
   {
     q: "How do we get started?",
-    a: "Send a note on the right. You'll get a reply within 24 hours with a 30-min discovery call slot. Within a week you'll have scope, timeline and a fixed quote.",
+    a: "Complete the project form with your requirements, budget, and timeline. I’ll review the details and respond within 24 hours.",
     tag: "Kickoff",
   },
 ];
 
-function FaqItem({ item, open, onToggle, index }: { item: (typeof faqs)[number]; open: boolean; onToggle: () => void; index: number }) {
+function FaqItem({
+  item,
+  open,
+  onToggle,
+  index,
+}: {
+  item: (typeof faqs)[number];
+  open: boolean;
+  onToggle: () => void;
+  index: number;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -998,14 +1126,19 @@ function FaqItem({ item, open, onToggle, index }: { item: (typeof faqs)[number];
         animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: 0.5 }}
         className="pointer-events-none absolute -inset-x-4 inset-y-0 -z-10 rounded-2xl"
-        style={{ background: "radial-gradient(600px circle at 20% 50%, oklch(0.5 0.26 295 / 0.14), transparent 60%)" }}
+        style={{
+          background:
+            "radial-gradient(600px circle at 20% 50%, oklch(0.5 0.26 295 / 0.14), transparent 60%)",
+        }}
       />
       <button
         onClick={onToggle}
         className="flex w-full items-center gap-6 py-6 text-left md:py-8"
         aria-expanded={open}
       >
-        <span className="w-10 shrink-0 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">0{index + 1}</span>
+        <span className="w-10 shrink-0 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+          0{index + 1}
+        </span>
         <span className="flex-1 font-serif text-xl italic leading-tight text-bone transition-colors md:text-3xl">
           {item.q}
         </span>
@@ -1013,12 +1146,20 @@ function FaqItem({ item, open, onToggle, index }: { item: (typeof faqs)[number];
           {item.tag}
         </span>
         <motion.span
-          animate={{ rotate: open ? 45 : 0, backgroundColor: open ? "oklch(0.5 0.26 295)" : "transparent" }}
+          animate={{
+            rotate: open ? 45 : 0,
+            backgroundColor: open ? "oklch(0.5 0.26 295)" : "transparent",
+          }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            <path
+              d="M7 1v12M1 7h12"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
           </svg>
         </motion.span>
       </button>
@@ -1070,8 +1211,10 @@ function FaqContact() {
     name: "",
     email: "",
     company: "",
-    projectType: "Shopify build",
-    budget: "$10k — $25k",
+    website: "",
+    projectType: "Shopify & Ecommerce",
+    budget: "$5K–$10K",
+    timeline: "Flexible",
     details: "",
   });
   const [sent, setSent] = useState(false);
@@ -1084,13 +1227,14 @@ function FaqContact() {
   const sbx = useSpring(bx, { stiffness: 200, damping: 15 });
   const sby = useSpring(by, { stiffness: 200, damping: 15 });
 
-  const projectTypes = ["Shopify build", "Headless commerce", "AI automation", "Web app", "Audit / rescue"];
-  const budgets = ["$5k — $10k", "$10k — $25k", "$25k — $50k", "$50k+"];
+  const projectTypes = ["Shopify & Ecommerce", "AI Automation", "Full-Stack Application"];
+  const budgets = ["$3K–$5K", "$5K–$10K", "$10K–$25K", "$25K+"];
+  const timelines = ["As Soon as Possible", "Within 1 Month", "Within 2–3 Months", "Flexible"];
 
   const trust = [
     { v: "100+", l: "Projects shipped" },
     { v: "24h", l: "Reply time" },
-    { v: "12", l: "Countries" },
+    { v: "24", l: "Countries" },
     { v: "94%", l: "Renewal rate" },
   ];
 
@@ -1136,9 +1280,12 @@ function FaqContact() {
           className="mb-20 flex flex-col items-start justify-between gap-6 md:mb-28 md:flex-row md:items-end"
         >
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 08 — Consult</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+              / 10 — Consult
+            </p>
             <h2 className="mt-6 max-w-[14ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
-              Questions,<br />
+              Questions,
+              <br />
               then <span className="text-acid">answers</span>.
             </h2>
           </div>
@@ -1146,7 +1293,9 @@ function FaqContact() {
             {trust.map((t) => (
               <div key={t.l} className="flex items-baseline gap-2">
                 <span className="font-serif text-2xl italic text-bone">{t.v}</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">{t.l}</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
+                  {t.l}
+                </span>
               </div>
             ))}
           </div>
@@ -1187,9 +1336,7 @@ function FaqContact() {
             className="col-span-12 md:col-span-5"
           >
             <div className="sticky top-24">
-              <div
-                className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] p-8 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:p-10"
-              >
+              <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] p-8 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.6)] backdrop-blur-2xl md:p-10">
                 {/* animated gradient border */}
                 <motion.span
                   aria-hidden
@@ -1205,9 +1352,13 @@ function FaqContact() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Start a project</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+                      Start a project
+                    </p>
                     <h3 className="mt-3 font-serif text-3xl italic leading-tight md:text-4xl">
-                      Tell me what<br />you're building.
+                      Tell me what
+                      <br />
+                      you&apos;re building.
                     </h3>
                   </div>
                   <span className="relative flex h-3 w-3">
@@ -1243,9 +1394,30 @@ function FaqContact() {
                       className="mt-8 space-y-5"
                     >
                       {[
-                        { key: "name", label: "Your name", type: "text", placeholder: "Ada Lovelace" },
-                        { key: "email", label: "Email", type: "email", placeholder: "ada@studio.com" },
-                        { key: "company", label: "Company", type: "text", placeholder: "Analytical Engines Co." },
+                        {
+                          key: "name",
+                          label: "Your name",
+                          type: "text",
+                          placeholder: "Ada Lovelace",
+                        },
+                        {
+                          key: "email",
+                          label: "Work Email",
+                          type: "email",
+                          placeholder: "ada@studio.com",
+                        },
+                        {
+                          key: "company",
+                          label: "Company",
+                          type: "text",
+                          placeholder: "Analytical Engines Co.",
+                        },
+                        {
+                          key: "website",
+                          label: "Website URL",
+                          type: "url",
+                          placeholder: "https://example.com",
+                        },
                       ].map((field) => (
                         <FloatingField
                           key={field.key}
@@ -1262,7 +1434,9 @@ function FaqContact() {
                       ))}
 
                       <div>
-                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Project type</label>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+                          Project type
+                        </label>
                         <div className="mt-3 flex flex-wrap gap-2">
                           {projectTypes.map((p) => (
                             <button
@@ -1282,7 +1456,9 @@ function FaqContact() {
                       </div>
 
                       <div>
-                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Budget range</label>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+                          Budget range
+                        </label>
                         <div className="mt-3 grid grid-cols-2 gap-2">
                           {budgets.map((b) => (
                             <button
@@ -1301,14 +1477,40 @@ function FaqContact() {
                         </div>
                       </div>
 
+                      <div>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+                          Timeline
+                        </label>
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          {timelines.map((timeline) => (
+                            <button
+                              type="button"
+                              key={timeline}
+                              onClick={() => setForm({ ...form, timeline })}
+                              className={`rounded-xl border px-3 py-3 text-left font-mono text-[11px] tracking-wide transition-all ${
+                                form.timeline === timeline
+                                  ? "border-acid/60 bg-acid/10 text-bone"
+                                  : "border-white/10 bg-white/[0.02] text-bone/60 hover:border-white/30 hover:text-bone"
+                              }`}
+                            >
+                              {timeline}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
                       <div className="relative">
-                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">Project details</label>
+                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
+                          Project details
+                        </label>
                         <div className="relative mt-3">
                           <textarea
                             value={form.details}
                             onFocus={() => setFocused("details")}
                             onBlur={() => setFocused(null)}
-                            onChange={(e) => setForm({ ...form, details: e.target.value.slice(0, 1000) })}
+                            onChange={(e) =>
+                              setForm({ ...form, details: e.target.value.slice(0, 1000) })
+                            }
                             rows={4}
                             placeholder="What are you building, and what does 'shipped' look like?"
                             className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3 font-sans text-sm text-bone placeholder:text-mist/60 outline-none transition-all focus:border-acid/60 focus:bg-white/[0.04]"
@@ -1319,7 +1521,9 @@ function FaqContact() {
                             animate={{ opacity: focused === "details" ? 1 : 0 }}
                             className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-acid/30"
                           />
-                          <div className="mt-1 text-right font-mono text-[10px] text-mist/60">{form.details.length}/1000</div>
+                          <div className="mt-1 text-right font-mono text-[10px] text-mist/60">
+                            {form.details.length}/1000
+                          </div>
                         </div>
                       </div>
 
@@ -1340,7 +1544,7 @@ function FaqContact() {
                           whileTap={{ scale: 0.97 }}
                           className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-acid px-7 py-4 font-mono text-[11px] uppercase tracking-[0.24em] text-ink transition-shadow hover:shadow-[0_20px_60px_-10px_oklch(0.5_0.26_295_/_0.6)]"
                         >
-                          <span className="relative z-10">Send inquiry</span>
+                          <span className="relative z-10">Send Project Details</span>
                           <motion.span
                             aria-hidden
                             className="relative z-10"
@@ -1365,7 +1569,8 @@ function FaqContact() {
                       </div>
 
                       <p className="pt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
-                        <span className="inline-block h-1.5 w-1.5 translate-y-[-1px] rounded-full bg-acid" /> Usually replies within 24 hours
+                        <span className="inline-block h-1.5 w-1.5 translate-y-[-1px] rounded-full bg-acid" />{" "}
+                        I usually respond within 24 hours.
                       </p>
                     </motion.form>
                   )}
