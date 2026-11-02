@@ -782,7 +782,7 @@ function ClosingCTA() {
       />
       <div className="relative mx-auto max-w-[1400px] text-center">
         <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 10 — Next</p>
-        <h2 className="mx-auto mt-8 max-w-5xl font-serif text-6xl italic leading-[0.95] tracking-tight md:text-[9vw]">
+        <h2 className="mx-auto mt-8 max-w-4xl font-serif text-4xl italic leading-[0.95] tracking-tight sm:text-5xl md:text-6xl">
           Have a Store Problem
           <br />
           or a <span className="text-acid">Project in Mind?</span>
