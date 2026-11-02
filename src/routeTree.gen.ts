@@ -11,12 +11,19 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ShopifyRouteImport } from './routes/shopify'
 import { Route as ShopifyEcommerceDevelopmentRouteImport } from './routes/shopify-ecommerce-development'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogCustomShopifyThemeVsPremiumThemeRouteImport } from './routes/blog.custom-shopify-theme-vs-premium-theme'
+import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
+import { Route as PortfolioBlazeRouteImport } from './routes/portfolio.blaze'
+import { Route as PortfolioMobuxeRouteImport } from './routes/portfolio.mobuxe'
+import { Route as PortfolioSalesforgeRouteImport } from './routes/portfolio.salesforge'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesAiAutomationRouteImport } from './routes/services.ai-automation'
 import { Route as ServicesDashboardPortalDevelopmentRouteImport } from './routes/services.dashboard-portal-development'
@@ -43,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -76,6 +88,37 @@ const ShopifyEcommerceDevelopmentRoute =
     path: '/shopify-ecommerce-development',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
+const BlogCustomShopifyThemeVsPremiumThemeRoute =
+  BlogCustomShopifyThemeVsPremiumThemeRouteImport.update({
+    id: '/custom-shopify-theme-vs-premium-theme',
+    path: '/custom-shopify-theme-vs-premium-theme',
+    getParentRoute: () => BlogRoute,
+  } as any)
+const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortfolioRoute,
+} as any)
+const PortfolioBlazeRoute = PortfolioBlazeRouteImport.update({
+  id: '/blaze',
+  path: '/blaze',
+  getParentRoute: () => PortfolioRoute,
+} as any)
+const PortfolioMobuxeRoute = PortfolioMobuxeRouteImport.update({
+  id: '/mobuxe',
+  path: '/mobuxe',
+  getParentRoute: () => PortfolioRoute,
+} as any)
+const PortfolioSalesforgeRoute = PortfolioSalesforgeRouteImport.update({
+  id: '/salesforge',
+  path: '/salesforge',
+  getParentRoute: () => PortfolioRoute,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -177,12 +220,17 @@ const ServicesWordpressDevelopmentRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/portfolio': typeof PortfolioRoute
+  '/portfolio': typeof PortfolioRouteWithChildren
   '/resume': typeof ResumeRoute
   '/services': typeof ServicesRouteWithChildren
   '/shopify': typeof ShopifyRoute
   '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/blog/custom-shopify-theme-vs-premium-theme': typeof BlogCustomShopifyThemeVsPremiumThemeRoute
+  '/portfolio/blaze': typeof PortfolioBlazeRoute
+  '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
+  '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -199,16 +247,21 @@ export interface FileRoutesByFullPath {
   '/services/web-scraping': typeof ServicesWebScrapingRoute
   '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
   '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/blog/': typeof BlogIndexRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/portfolio': typeof PortfolioRoute
   '/resume': typeof ResumeRoute
   '/shopify': typeof ShopifyRoute
   '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/blog/custom-shopify-theme-vs-premium-theme': typeof BlogCustomShopifyThemeVsPremiumThemeRoute
+  '/portfolio/blaze': typeof PortfolioBlazeRoute
+  '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
+  '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -225,18 +278,25 @@ export interface FileRoutesByTo {
   '/services/web-scraping': typeof ServicesWebScrapingRoute
   '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
   '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/blog': typeof BlogIndexRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/portfolio': typeof PortfolioRoute
+  '/portfolio': typeof PortfolioRouteWithChildren
   '/resume': typeof ResumeRoute
   '/services': typeof ServicesRouteWithChildren
   '/shopify': typeof ShopifyRoute
   '/shopify-ecommerce-development': typeof ShopifyEcommerceDevelopmentRoute
+  '/blog/custom-shopify-theme-vs-premium-theme': typeof BlogCustomShopifyThemeVsPremiumThemeRoute
+  '/portfolio/blaze': typeof PortfolioBlazeRoute
+  '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
+  '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -253,6 +313,8 @@ export interface FileRoutesById {
   '/services/web-scraping': typeof ServicesWebScrapingRoute
   '/services/woocommerce-development': typeof ServicesWoocommerceDevelopmentRoute
   '/services/wordpress-development': typeof ServicesWordpressDevelopmentRoute
+  '/blog/': typeof BlogIndexRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -260,12 +322,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/blog'
     | '/contact'
     | '/portfolio'
     | '/resume'
     | '/services'
     | '/shopify'
     | '/shopify-ecommerce-development'
+    | '/blog/custom-shopify-theme-vs-premium-theme'
+    | '/portfolio/blaze'
+    | '/portfolio/mobuxe'
+    | '/portfolio/salesforge'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -282,16 +349,21 @@ export interface FileRouteTypes {
     | '/services/web-scraping'
     | '/services/woocommerce-development'
     | '/services/wordpress-development'
+    | '/blog/'
+    | '/portfolio/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
-    | '/portfolio'
     | '/resume'
     | '/shopify'
     | '/shopify-ecommerce-development'
+    | '/blog/custom-shopify-theme-vs-premium-theme'
+    | '/portfolio/blaze'
+    | '/portfolio/mobuxe'
+    | '/portfolio/salesforge'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -308,17 +380,24 @@ export interface FileRouteTypes {
     | '/services/web-scraping'
     | '/services/woocommerce-development'
     | '/services/wordpress-development'
+    | '/blog'
+    | '/portfolio'
     | '/services'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/blog'
     | '/contact'
     | '/portfolio'
     | '/resume'
     | '/services'
     | '/shopify'
     | '/shopify-ecommerce-development'
+    | '/blog/custom-shopify-theme-vs-premium-theme'
+    | '/portfolio/blaze'
+    | '/portfolio/mobuxe'
+    | '/portfolio/salesforge'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -335,14 +414,17 @@ export interface FileRouteTypes {
     | '/services/web-scraping'
     | '/services/woocommerce-development'
     | '/services/wordpress-development'
+    | '/blog/'
+    | '/portfolio/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
-  PortfolioRoute: typeof PortfolioRoute
+  PortfolioRoute: typeof PortfolioRouteWithChildren
   ResumeRoute: typeof ResumeRoute
   ServicesRoute: typeof ServicesRouteWithChildren
   ShopifyRoute: typeof ShopifyRoute
@@ -363,6 +445,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -406,6 +495,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/shopify-ecommerce-development'
       preLoaderRoute: typeof ShopifyEcommerceDevelopmentRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/custom-shopify-theme-vs-premium-theme': {
+      id: '/blog/custom-shopify-theme-vs-premium-theme'
+      path: '/custom-shopify-theme-vs-premium-theme'
+      fullPath: '/blog/custom-shopify-theme-vs-premium-theme'
+      preLoaderRoute: typeof BlogCustomShopifyThemeVsPremiumThemeRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/'
+      fullPath: '/portfolio/'
+      preLoaderRoute: typeof PortfolioIndexRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
+    '/portfolio/blaze': {
+      id: '/portfolio/blaze'
+      path: '/blaze'
+      fullPath: '/portfolio/blaze'
+      preLoaderRoute: typeof PortfolioBlazeRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
+    '/portfolio/mobuxe': {
+      id: '/portfolio/mobuxe'
+      path: '/mobuxe'
+      fullPath: '/portfolio/mobuxe'
+      preLoaderRoute: typeof PortfolioMobuxeRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
+    '/portfolio/salesforge': {
+      id: '/portfolio/salesforge'
+      path: '/salesforge'
+      fullPath: '/portfolio/salesforge'
+      preLoaderRoute: typeof PortfolioSalesforgeRouteImport
+      parentRoute: typeof PortfolioRoute
     }
     '/services/': {
       id: '/services/'
@@ -529,6 +660,37 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BlogRouteChildren {
+  BlogCustomShopifyThemeVsPremiumThemeRoute: typeof BlogCustomShopifyThemeVsPremiumThemeRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogCustomShopifyThemeVsPremiumThemeRoute:
+    BlogCustomShopifyThemeVsPremiumThemeRoute,
+  BlogIndexRoute: BlogIndexRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface PortfolioRouteChildren {
+  PortfolioBlazeRoute: typeof PortfolioBlazeRoute
+  PortfolioMobuxeRoute: typeof PortfolioMobuxeRoute
+  PortfolioSalesforgeRoute: typeof PortfolioSalesforgeRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
+}
+
+const PortfolioRouteChildren: PortfolioRouteChildren = {
+  PortfolioBlazeRoute: PortfolioBlazeRoute,
+  PortfolioMobuxeRoute: PortfolioMobuxeRoute,
+  PortfolioSalesforgeRoute: PortfolioSalesforgeRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
+}
+
+const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
+  PortfolioRouteChildren,
+)
+
 interface ServicesRouteChildren {
   ServicesAiAutomationRoute: typeof ServicesAiAutomationRoute
   ServicesDashboardPortalDevelopmentRoute: typeof ServicesDashboardPortalDevelopmentRoute
@@ -579,8 +741,9 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
-  PortfolioRoute: PortfolioRoute,
+  PortfolioRoute: PortfolioRouteWithChildren,
   ResumeRoute: ResumeRoute,
   ServicesRoute: ServicesRouteWithChildren,
   ShopifyRoute: ShopifyRoute,

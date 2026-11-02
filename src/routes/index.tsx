@@ -11,11 +11,24 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { SiteShell, Marquee } from "@/components/site/shell";
-import { CompanyLogos } from "@/components/site/company-logos";
-import { ClientProjectLogos } from "@/components/site/client-project-logos";
-import { getMainServices } from "@/lib/services-catalog";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Mohid Imran | Shopify & Full Stack Developer" },
+      {
+        name: "description",
+        content:
+          "Work with Mohid Imran for Shopify stores, custom themes, apps and web applications. Get help with store performance, user experience and technical fixes.",
+      },
+      { property: "og:title", content: "Mohid Imran | Shopify & Full Stack Developer" },
+      {
+        property: "og:description",
+        content:
+          "Work with Mohid Imran for Shopify stores, custom themes, apps and web applications. Get help with store performance, user experience and technical fixes.",
+      },
+    ],
+  }),
   component: Index,
 });
 
@@ -25,24 +38,19 @@ function Index() {
       <Hero />
       <Marquee
         items={[
-          "Shopify Plus",
-          "Headless Commerce",
-          "AI Automation",
-          "Full Stack",
-          "Django",
-          "Performance",
-          "CRO",
-          "Django · React · Next",
+          "Shopify Development",
+          "Custom Themes & Apps",
+          "Full Stack Development",
+          "Store Optimization",
         ]}
       />
       <Intro />
       <Capabilities />
-      <CompanyLogos />
-      <ClientProjectLogos />
+      <Experience />
       <FeaturedWork />
       <Process />
       <TechStack />
-      <Testimonials />
+      <WorkingTogether />
       <FaqContact />
       <ClosingCTA />
     </SiteShell>
@@ -92,7 +100,8 @@ function Hero() {
       />
 
       {/* meta rail */}
-      <div className="relative flex items-center justify-end font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
+      <div className="relative flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
+        <span>Independent Developer · Working Remotely</span>
         <span className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-acid" />
           Available for Projects · Worldwide
@@ -100,103 +109,46 @@ function Hero() {
       </div>
 
       <div className="relative mt-auto grid flex-1 grid-cols-12 items-end gap-8 pb-14 pt-20">
-        <div className="col-span-12 md:col-span-9">
-          <RevealWords
-            text="Shopify engineering,"
-            className="font-serif text-[13vw] italic leading-[0.9] tracking-tight text-bone md:text-[9vw]"
-          />
-          <RevealWords
-            text="AI automation,"
-            delay={0.15}
-            className="mt-2 font-display text-[13vw] leading-[0.9] tracking-tight text-bone md:text-[9vw]"
-          />
-          <RevealWords
-            text="Full-stack systems."
-            delay={0.3}
-            className="mt-2 font-display text-[13vw] leading-[0.9] tracking-tight text-acid md:text-[9vw]"
-          />
+        <div className="col-span-12 md:col-span-8">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-5xl text-balance font-display text-4xl leading-[0.95] tracking-tight text-bone sm:text-5xl md:text-[4.8vw]"
+          >
+            Shopify &amp; Full Stack Developer for Your Next Build
+            <span className="font-serif italic text-acid">—or the Fix You Need Today</span>
+          </motion.h1>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="col-span-12 space-y-6 md:col-span-3"
+          transition={{ delay: 0.35, duration: 0.8 }}
+          className="col-span-12 space-y-6 md:col-span-4"
         >
-          <p className="text-balance text-sm leading-relaxed text-bone/70">
-            I&apos;m <span className="text-bone">Mohid Imran</span>, an independent developer
-            helping ecommerce brands, SaaS companies, and agencies build high-converting Shopify
-            stores, intelligent automations, and scalable web applications.
+          <p className="text-balance text-sm leading-relaxed text-bone/70 md:text-base">
+            I&apos;m Mohid Imran. I build Shopify stores, custom themes, apps and web applications.
+            If your existing website is slow, difficult to use or missing functionality, I can help
+            identify the problem and implement a practical solution.
           </p>
           <div className="flex flex-wrap gap-3">
-            <MagneticLink to="/portfolio" variant="light">
-              View My Work
+            <MagneticLink to="/contact" variant="light">
+              Discuss Your Project
             </MagneticLink>
-            <MagneticLink to="/contact" variant="ghost">
-              Book a call
+            <MagneticLink to="/portfolio" variant="ghost">
+              Explore My Work
             </MagneticLink>
           </div>
         </motion.div>
       </div>
 
-      {/* stats strip */}
-      <div className="relative grid grid-cols-2 gap-6 border-t border-white/10 py-6 md:grid-cols-4">
-        {[
-          ["100+", "Projects shipped"],
-          ["3+", "Years in the trenches"],
-          ["24+", "Countries served"],
-          ["99", "Lighthouse average"],
-        ].map(([n, l]) => (
-          <div key={l} className="flex flex-col">
-            <Counter value={n} />
-            <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-mist">
-              {l}
-            </span>
-          </div>
-        ))}
+      <div className="relative border-t border-white/10 py-6">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-mist md:text-xs">
+          Shopify Development · Custom Themes &amp; Apps · Full Stack Development · Store
+          Optimization
+        </p>
       </div>
     </section>
-  );
-}
-
-function Counter({ value }: { value: string }) {
-  return (
-    <motion.span
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="font-serif text-4xl italic text-bone md:text-5xl"
-    >
-      {value}
-    </motion.span>
-  );
-}
-
-function RevealWords({
-  text,
-  className,
-  delay = 0,
-}: {
-  text: string;
-  className?: string;
-  delay?: number;
-}) {
-  const words = text.split(" ");
-  return (
-    <h1 className={className}>
-      {words.map((w, i) => (
-        <span key={i} className="mr-[0.25em] inline-block overflow-hidden align-top">
-          <motion.span
-            initial={{ y: "110%" }}
-            animate={{ y: 0 }}
-            transition={{ delay: delay + i * 0.06, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-block"
-          >
-            {w}
-          </motion.span>
-        </span>
-      ))}
-    </h1>
   );
 }
 
@@ -250,23 +202,33 @@ function Intro() {
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 02 — Prelude</p>
         </div>
         <div className="col-span-12 md:col-span-9">
-          <RevealWords
-            text="I build ecommerce experiences that convert, automation that saves time, and scalable software that supports business growth."
-            className="font-serif text-3xl italic leading-[1.1] tracking-tight text-ink md:text-6xl"
-          />
+          <h2 className="max-w-4xl font-serif text-3xl italic leading-[1.1] tracking-tight text-ink md:text-6xl">
+            What does your business need its website to do?
+          </h2>
+          <div className="mt-10 max-w-3xl space-y-5 text-base leading-relaxed text-mist md:text-lg">
+            <p>
+              You might need to launch a store, improve an existing buying experience or build
+              software around the way your team works.
+            </p>
+            <p>
+              I work across the storefront, application and integration layers, helping turn those
+              requirements into usable features. That could mean an editable Shopify theme, a custom
+              app, a customer portal or a Python workflow that reduces manual data entry.
+            </p>
+          </div>
           <div className="mt-16 grid gap-10 md:grid-cols-3">
             {[
               {
-                k: "Shopify & Ecommerce",
-                v: "Custom Shopify stores, Shopify Plus solutions, headless commerce, checkout development, and performance optimization.",
+                k: "Ecommerce",
+                v: "Stores and shopping experiences built around your products, customers and day-to-day operations.",
               },
               {
-                k: "Full-Stack Applications",
-                v: "Scalable SaaS platforms, business portals, dashboards, and internal tools built with Django, Node.js, React, and Next.js.",
+                k: "Web Applications",
+                v: "Custom interfaces, backend APIs and business tools that connect your users with the information they need.",
               },
               {
-                k: "AI Automation",
-                v: "AI agents, intelligent chatbots, workflow automation, web scraping, and integrations that reduce manual work.",
+                k: "Automation & Data",
+                v: "Scripts, integrations and scoped automation tools that help information move between websites and business systems.",
               },
             ].map((c, i) => (
               <motion.div
@@ -289,9 +251,52 @@ function Intro() {
 }
 
 /* ————————————— CAPABILITIES ————————————— */
-function Capabilities() {
-  const services = getMainServices();
+const homepageServices = [
+  {
+    title: "Shopify Development",
+    description:
+      "Launch a Shopify store or extend what your current store can do. I develop custom themes, reusable sections, apps and integrations, with headless storefront development available for projects that need a separate frontend.",
+    cta: "Explore Shopify Development",
+    to: "/services/shopify-development" as const,
+  },
+  {
+    title: "Shopify CRO & Store Optimization",
+    description:
+      "Find the friction in your shopping journey. I review mobile usability, product pages, cart interactions and performance, then help implement improvements. Where traffic and data support it, A/B testing can help evaluate changes.",
+    cta: "Explore Store Optimization",
+    to: "/services/shopify-cro" as const,
+  },
+  {
+    title: "Full Stack Development",
+    description:
+      "Build a website or web application around your business requirements. I work on frontend interfaces, backend APIs and integrations for custom applications, SaaS MVPs, dashboards and portals.",
+    cta: "Explore Full Stack Development",
+    to: "/services/full-stack-development" as const,
+  },
+  {
+    title: "WordPress & WooCommerce",
+    description:
+      "Create a manageable business website or customize an online store. My work includes Elementor builds, custom themes, WooCommerce functionality, plugin integrations and improvements to existing websites.",
+    cta: "Explore WordPress Development",
+    to: "/services/wordpress-development" as const,
+  },
+  {
+    title: "AI & Workflow Automation",
+    description:
+      "Explore how automation could help with a specific business process. I develop Python workflows and API connections, and prototype AI-assisted tools to assess how they could fit your requirements.",
+    cta: "Explore Automation",
+    to: "/services/ai-automation" as const,
+  },
+  {
+    title: "Web Scraping & Data Solutions",
+    description:
+      "Turn website information into structured data. I build Python scripts for agreed data sources and collection requirements, helping organize the results for reporting, analysis or use in another system.",
+    cta: "Explore Web Scraping",
+    to: "/services/web-scraping" as const,
+  },
+];
 
+function Capabilities() {
   return (
     <section className="relative overflow-hidden bg-ink px-6 py-32 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
@@ -301,9 +306,9 @@ function Capabilities() {
               / 03 — Capabilities
             </p>
             <h2 className="mt-6 max-w-3xl font-display text-5xl leading-[0.95] tracking-tight md:text-7xl">
-              Six core services,
+              Find the Right Help
               <br />
-              <span className="font-serif italic text-acid">one accountable partner.</span>
+              <span className="font-serif italic text-acid">for Your Project</span>
             </h2>
           </div>
           <Link
@@ -314,9 +319,9 @@ function Capabilities() {
           </Link>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
+          {homepageServices.map((s, i) => (
             <motion.div
-              key={s.slug}
+              key={s.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -331,26 +336,12 @@ function Capabilities() {
               </div>
               <div className="mt-auto pt-16">
                 <h3 className="font-display text-2xl tracking-tight md:text-3xl">{s.title}</h3>
-                {s.lead ? (
-                  <p className="mt-4 text-sm leading-relaxed opacity-70">{s.lead}</p>
-                ) : null}
-                {s.stack?.length ? (
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {s.stack.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-current/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] opacity-70"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+                <p className="mt-4 text-sm leading-relaxed opacity-70">{s.description}</p>
                 <Link
-                  to={s.path}
+                  to={s.to}
                   className="mt-8 inline-flex items-center gap-2 border-b border-current/30 pb-1 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors hover:text-acid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-acid"
                 >
-                  {s.slug === "shopify-development" ? "Explore Shopify development →" : "Explore →"}
+                  {s.cta} →
                 </Link>
               </div>
             </motion.div>
@@ -361,38 +352,131 @@ function Capabilities() {
   );
 }
 
+/* ————————————— EXPERIENCE ————————————— */
+const experience = [
+  {
+    company: "Encoders Studio",
+    role: "Web Developer — Shopify & WordPress",
+    period: "November 2025–Present",
+    text: "Building and maintaining storefronts, translating designs into responsive pages, troubleshooting theme and app issues, and improving frontend performance.",
+  },
+  {
+    company: "Buildaze",
+    role: "Freelance Full Stack Developer",
+    period: "July 2023–Present",
+    text: "Delivering Shopify, WordPress and custom web projects. Work includes theme development, app functionality, headless storefronts, Angular interfaces and Django REST APIs.",
+  },
+  {
+    company: "Xylosolutions",
+    role: "Shopify & WordPress Developer",
+    period: "June 2025–January 2026",
+    text: "Developing mobile-first storefronts and WordPress websites, supporting integrations, and testing layouts across browsers and devices.",
+  },
+  {
+    company: "ARNEX",
+    role: "Research & Development Intern",
+    period: "September 2025–December 2025",
+    text: "Developing Python scripts for web scraping and data collection, alongside AI automation prototyping and technical feasibility research.",
+  },
+  {
+    company: "Blink Devs",
+    role: "Shopify & WordPress Developer",
+    period: "February 2025–May 2025",
+    text: "Building Shopify themes, implementing responsive layouts and improving image and script loading.",
+  },
+];
+
+function Experience() {
+  return (
+    <section className="relative bg-bone px-6 py-32 text-ink md:px-10 md:py-48">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-4">
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+              / 04 — Experience
+            </p>
+            <h2 className="mt-6 max-w-md font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
+              Experience Across Client Projects,
+              <span className="font-serif italic text-acid"> Agencies and Product Development</span>
+            </h2>
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-mist md:text-base">
+              My work combines Shopify and WordPress development with custom web applications,
+              performance improvements and automated data collection.
+            </p>
+            <Link
+              to="/resume"
+              className="mt-8 inline-flex items-center gap-2 border-b border-ink/30 pb-1 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors hover:border-acid hover:text-acid"
+            >
+              View My Resume →
+            </Link>
+          </div>
+          <div className="col-span-12 divide-y divide-ink/10 border-y border-ink/10 md:col-span-8">
+            {experience.map((job, i) => (
+              <motion.article
+                key={job.company}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.05, duration: 0.6 }}
+                className="grid gap-4 py-8 md:grid-cols-12 md:gap-6"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-mist md:col-span-3">
+                  {job.period}
+                </span>
+                <div className="md:col-span-9">
+                  <h3 className="font-serif text-3xl italic">{job.company}</h3>
+                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-acid">
+                    {job.role}
+                  </p>
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-mist md:text-base">
+                    {job.text}
+                  </p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ————————————— FEATURED WORK (sticky storytelling) ————————————— */
 const featured = [
   {
     n: "01",
-    title: "Nordic Grain Co.",
-    kind: "Shopify Plus · Headless",
-    metric: "+38% AOV",
-    line: "A quiet, editorial commerce experience for a Scandinavian coffee roaster.",
+    title: "SalesForge",
+    kind: "Shopify App Development",
+    metric: "App suite",
+    line: "A sales and conversion suite with features including product bundles, recommendations, pre-orders, a cart drawer and a bundle builder.",
+    tech: "Remix · Polaris · App Bridge · Shopify Functions · Theme App Extensions · Prisma",
     color: "oklch(0.72 0.18 45)",
   },
   {
     n: "02",
-    title: "Astra Automations",
-    kind: "AI Platform · Support",
-    metric: "12k hrs saved",
-    line: "An agentic operations layer resolving 60% of tier-1 tickets end to end.",
+    title: "Mobuxe",
+    kind: "Shopify Theme Development",
+    metric: "80+ sections",
+    line: "An Online Store 2.0 theme project with more than 80 sections, developed for Shopify Theme Store submission.",
+    tech: "Liquid · Online Store 2.0 · HTML · CSS · JavaScript",
     color: "oklch(0.68 0.19 275)",
   },
   {
     n: "03",
-    title: "Fieldnote Studio",
-    kind: "Editorial Commerce",
-    metric: "98 CWV",
-    line: "Longform meets checkout for an independent print magazine.",
+    title: "Blaze",
+    kind: "Shopify Theme Development",
+    metric: "Theme Store",
+    line: "A luxury fashion theme project developed around Shopify’s Online Store 2.0 architecture, targeting Theme Store submission.",
+    tech: "Liquid · Online Store 2.0 · Responsive Frontend Development",
     color: "oklch(0.85 0.12 130)",
   },
   {
     n: "04",
-    title: "Meridian Wholesale",
-    kind: "B2B Portal",
-    metric: "$4.2M GMV",
-    line: "A wholesale ordering platform with tiered pricing and NetSuite sync.",
+    title: "Client Storefront Work",
+    kind: "Shopify Development & Optimization",
+    metric: "Multi-brand",
+    line: "Theme development, app integrations, responsive layouts and frontend improvements across client projects including Apolo-Untold, SweetNyWellness, Kaasida, Outstanding Nutrition and ArtfullyWalls.",
+    tech: "Shopify · Liquid · Apps · Performance",
     color: "oklch(0.62 0.16 20)",
   },
 ];
@@ -416,17 +500,17 @@ function FeaturedWork() {
         <div className="flex items-end justify-between px-6 pt-24 md:px-10">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
-              / 06 — Selected Work
+              / 05 — Selected Work
             </p>
             <h2 className="mt-4 font-serif text-4xl italic leading-none md:text-6xl">
-              Objects in the wild.
+              A Closer Look at What I Build
             </h2>
           </div>
           <Link
             to="/portfolio"
             className="hidden items-center gap-2 border-b border-ink pb-1 font-display text-sm hover:text-flame md:inline-flex"
           >
-            Full index →
+            Explore My Portfolio →
           </Link>
         </div>
 
@@ -464,6 +548,9 @@ function FeaturedWork() {
                     {featured[active].title}
                   </div>
                   <div className="mt-4 max-w-md text-sm text-ink/80">{featured[active].line}</div>
+                  <div className="mt-3 max-w-lg font-mono text-[10px] uppercase tracking-[0.16em] text-ink/60">
+                    {featured[active].tech}
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -508,7 +595,7 @@ function FeaturedWork() {
             <div className="mt-8 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
               <span>Scroll to advance</span>
               <Link to="/portfolio" className="text-ink hover:text-flame">
-                Enter gallery →
+                Explore My Portfolio →
               </Link>
             </div>
           </div>
@@ -522,23 +609,23 @@ function FeaturedWork() {
 const steps = [
   {
     n: "01",
-    t: "Discover",
-    d: "We discuss your goals, challenges, users, and the business results you want to achieve.",
+    t: "Understand the Requirement",
+    d: "We discuss your business, current website and the problem you want to solve. For an existing store or application, I review the relevant setup before recommending the work.",
   },
   {
     n: "02",
-    t: "Plan",
-    d: "I define the project scope, technical approach, integrations, timeline, and clear deliverables.",
+    t: "Define the Scope",
+    d: "We agree on the features, priorities, dependencies and deliverables. You get a clear understanding of what the project includes and what needs further investigation.",
   },
   {
     n: "03",
-    t: "Build",
-    d: "Your solution is developed, tested, and shared through regular progress updates and a staging environment.",
+    t: "Build & Review",
+    d: "I develop the agreed solution and share progress for review. Feedback helps check that the work meets your requirements before launch.",
   },
   {
     n: "04",
-    t: "Launch & Improve",
-    d: "After launch, I monitor performance, resolve issues, and improve speed, conversions, and user experience.",
+    t: "Test & Hand Over",
+    d: "I test the relevant functionality, responsive layouts and integrations, then prepare the work for release and handover. Any ongoing support is agreed as part of the project.",
   },
 ];
 
@@ -549,12 +636,12 @@ function Process() {
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-4">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
-              / 07 — Process
+              / 06 — Process
             </p>
             <h2 className="mt-6 font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
-              A clear four-step process.
+              Know What Happens
               <br />
-              <span className="font-serif italic text-acid">No unnecessary complexity.</span>
+              <span className="font-serif italic text-acid">Before Development Starts</span>
             </h2>
           </div>
           <ol className="col-span-12 space-y-6 md:col-span-8">
@@ -588,46 +675,56 @@ function Process() {
 
 /* ————————————— TECH ————————————— */
 function TechStack() {
-  const tech = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Tailwind",
-    "Framer Motion",
-    "Shopify",
-    "Hydrogen",
-    "Liquid",
-    "Node",
-    "Django",
-    "Python",
-    "Postgres",
-    "Redis",
-    "OpenAI",
-    "LangChain",
-    "Playwright",
-    "n8n",
-    "Vercel",
-    "Cloudflare",
-    "Sanity",
+  const groups = [
+    {
+      label: "Shopify",
+      items:
+        "Liquid · Online Store 2.0 · Hydrogen · Remix · Shopify Functions · Theme App Extensions",
+    },
+    {
+      label: "Frontend",
+      items: "HTML · CSS · JavaScript · TypeScript · React · Next.js · Angular",
+    },
+    {
+      label: "Backend & Data",
+      items: "Python · Django · Django REST Framework · REST APIs · Prisma",
+    },
+    {
+      label: "WordPress",
+      items: "WordPress · WooCommerce · Elementor · PHP",
+    },
+    {
+      label: "Development & Performance",
+      items: "Git · GitHub · Figma · Lighthouse · PageSpeed Insights · GTmetrix",
+    },
   ];
   return (
-    <section className="border-y border-white/10 bg-ink px-6 py-24 md:px-10">
+    <section className="border-y border-white/10 bg-ink px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1400px]">
         <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
-          / 08 — Instruments
+          / 07 — Instruments
         </p>
-        <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4 font-display text-3xl tracking-tight text-bone/60 md:text-5xl">
-          {tech.map((t, i) => (
-            <motion.span
-              key={t}
+        <h2 className="mt-6 max-w-3xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
+          Tools Selected
+          <span className="font-serif italic text-acid"> Around the Work</span>
+        </h2>
+        <div className="mt-14 divide-y divide-white/10 border-y border-white/10">
+          {groups.map((group, i) => (
+            <motion.div
+              key={group.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.03 }}
-              className="cursor-default transition-colors hover:text-acid"
+              transition={{ delay: i * 0.05, duration: 0.55 }}
+              className="grid gap-4 py-8 md:grid-cols-12 md:items-baseline"
             >
-              {t}
-            </motion.span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-mist md:col-span-3">
+                {group.label}
+              </p>
+              <p className="font-display text-xl tracking-tight text-bone/75 md:col-span-9 md:text-3xl">
+                {group.items}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -635,387 +732,36 @@ function TechStack() {
   );
 }
 
-/* ————————————— SIGNAL ————————————— */
-type Signal = {
-  q: string;
-  highlight: string;
-  name: string;
-  role: string;
-  company: string;
-  initials: string;
-  metric: { value: string; label: string };
-  tint: string;
-};
-
-const signals: Signal[] = [
-  {
-    q: "Mohid rewrote our Shopify checkout logic and killed a 22-second LCP overnight. Revenue per session jumped the next week.",
-    highlight: "killed a 22-second LCP overnight",
-    name: "Amara Bhatti",
-    role: "Head of Ecommerce",
-    company: "Lune & Sable — DTC skincare",
-    initials: "AB",
-    metric: { value: "+38%", label: "Revenue / session, wk 1" },
-    tint: "oklch(0.68 0.22 35 / 0.35)",
-  },
-  {
-    q: "He replaced three contractors and shipped an AI agent that now handles 60% of our support tickets end-to-end.",
-    highlight: "60% of tickets end-to-end",
-    name: "Daniel Reyes",
-    role: "Founder & CEO",
-    company: "Northlane — B2B SaaS · Series A",
-    initials: "DR",
-    metric: { value: "3 → 1", label: "Contractors replaced" },
-    tint: "oklch(0.5 0.26 295 / 0.35)",
-  },
-  {
-    q: "The kind of engineer you keep on speed dial. Ships, communicates, and thinks about the business, not just the code.",
-    highlight: "thinks about the business",
-    name: "Sasha Ito",
-    role: "Creative Director",
-    company: "Field Studio — boutique agency",
-    initials: "SI",
-    metric: { value: "18 mo", label: "On retainer" },
-    tint: "oklch(0.86 0.19 105 / 0.30)",
-  },
-  {
-    q: "Two weeks from kickoff to a headless storefront that outranks Shopify's own theme on Core Web Vitals. Unreal.",
-    highlight: "two weeks from kickoff",
-    name: "Priya Kohli",
-    role: "VP Growth",
-    company: "Orbit Goods — headless commerce",
-    initials: "PK",
-    metric: { value: "98 / 100", label: "Lighthouse mobile" },
-    tint: "oklch(0.5 0.26 295 / 0.35)",
-  },
-];
-
-const stats = [
-  { value: 100, suffix: "+", label: "Projects delivered" },
-  { value: 3, suffix: "+", label: "Years in the trenches" },
-  { value: 24, suffix: "", label: "Countries billed from" },
-  { value: 94, suffix: "%", label: "Retainer renewal rate" },
-];
-
-function SignalCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [n, setN] = useState(0);
-  const started = useRef(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && !started.current) {
-            started.current = true;
-            const start = performance.now();
-            const dur = 1400;
-            const step = (t: number) => {
-              const p = Math.min(1, (t - start) / dur);
-              const eased = 1 - Math.pow(1 - p, 3);
-              setN(Math.round(to * eased));
-              if (p < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-          }
-        });
-      },
-      { threshold: 0.4 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [to]);
+/* ————————————— WORKING TOGETHER ————————————— */
+function WorkingTogether() {
   return (
-    <span ref={ref}>
-      {n}
-      {suffix}
-    </span>
-  );
-}
-
-function SignalCard({
-  s,
-  index,
-  progress,
-}: {
-  s: Signal;
-  index: number;
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
-}) {
-  // each card occupies a slice of the pinned scroll
-  const slice = 1 / signals.length;
-  const start = index * slice;
-  const end = start + slice;
-  const mid = start + slice * 0.55;
-
-  const opacity = useTransform(
-    progress,
-    [start, start + slice * 0.15, end - slice * 0.1, end],
-    [0, 1, 1, 0],
-  );
-  const y = useTransform(progress, [start, mid, end], [80, 0, -80]);
-  const scale = useTransform(progress, [start, mid, end], [0.94, 1, 0.96]);
-  const blur = useTransform(progress, [start, mid, end], [12, 0, 8]);
-  const filter = useTransform(blur, (b) => `blur(${b}px)`);
-  const rotate = index % 2 === 0 ? -1.2 : 1.2;
-  const side = index % 2 === 0 ? "md:ml-0 md:mr-auto" : "md:ml-auto md:mr-0";
-
-  // mouse tilt
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 120, damping: 15 });
-  const sry = useSpring(ry, { stiffness: 120, damping: 15 });
-
-  const [hover, setHover] = useState(false);
-
-  const parts = s.q.split(s.highlight);
-
-  return (
-    <motion.figure
-      style={{ opacity, y, scale, filter, rotate }}
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        ry.set(px * 8);
-        rx.set(-py * 8);
-      }}
-      onMouseLeave={() => {
-        rx.set(0);
-        ry.set(0);
-        setHover(false);
-      }}
-      onMouseEnter={() => setHover(true)}
-      className={`pointer-events-auto absolute inset-x-4 top-1/2 -translate-y-1/2 md:inset-x-auto md:w-[62%] ${side}`}
-    >
-      <motion.div
-        style={{ rotateX: srx, rotateY: sry, transformPerspective: 1200 }}
-        className="group relative overflow-hidden rounded-[28px] border border-ink/10 bg-bone/70 p-8 shadow-[0_40px_120px_-40px_rgba(20,20,30,0.35)] backdrop-blur-xl md:p-14"
-      >
-        {/* dynamic light */}
-        <motion.div
-          aria-hidden
-          animate={{ opacity: hover ? 1 : 0.55 }}
-          transition={{ duration: 0.6 }}
-          className="pointer-events-none absolute -inset-40 -z-10"
-          style={{
-            background: `radial-gradient(500px circle at 30% 20%, ${s.tint}, transparent 60%)`,
-          }}
-        />
-        {/* animated border */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[28px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `conic-gradient(from 140deg, transparent, ${s.tint}, transparent 45%)`,
-            padding: 1,
-            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-          }}
-        />
-
-        <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
-          <span>Signal · 0{index + 1}</span>
-          <span className="hidden sm:inline">{s.company}</span>
+    <section className="relative bg-bone px-6 py-32 text-ink md:px-10 md:py-48">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8">
+        <div className="col-span-12 md:col-span-3">
+          <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+            / 08 — Working Together
+          </p>
         </div>
-
-        <blockquote className="mt-8 font-serif text-[26px] italic leading-[1.15] text-ink md:text-[44px]">
-          <span aria-hidden className="mr-2 -ml-2 align-top text-acid">
-            “
-          </span>
-          {parts[0]}
-          <span className="relative inline">
-            <span className="relative z-10">{s.highlight}</span>
-            <motion.span
-              aria-hidden
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
-              style={{ background: s.tint, transformOrigin: "left" }}
-              className="absolute inset-x-0 bottom-1 -z-0 h-[38%] rounded-[2px]"
-            />
-          </span>
-          {parts[1]}
-          <span aria-hidden className="ml-1 align-top text-acid">
-            ”
-          </span>
-        </blockquote>
-
-        <figcaption className="mt-10 flex flex-wrap items-end justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div
-              className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 font-mono text-xs tracking-widest text-ink"
-              style={{ background: s.tint }}
-            >
-              {s.initials}
-            </div>
-            <div>
-              <div className="font-serif text-lg italic leading-tight text-ink">{s.name}</div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
-                {s.role} · {s.company.split(" — ")[0]}
-              </div>
-            </div>
-          </div>
-          <div className="text-right">
-            <div className="font-serif text-3xl italic leading-none text-ink md:text-4xl">
-              {s.metric.value}
-            </div>
-            <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
-              {s.metric.label}
-            </div>
-          </div>
-        </figcaption>
-      </motion.div>
-    </motion.figure>
-  );
-}
-
-function Testimonials() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
-
-  // background marquee & orbs
-  const bgX = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const bgX2 = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
-  const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [1, 1, 0.15, 0]);
-  const indexActive = useTransform(scrollYProgress, (v) =>
-    Math.min(signals.length - 1, Math.floor(v * signals.length)),
-  );
-  const [active, setActive] = useState(0);
-  useMotionValueEvent(indexActive, "change", (v) => setActive(v as number));
-
-  // mouse parallax layer
-  const mx = useMotionValue(0.5);
-  const my = useMotionValue(0.5);
-  const smx = useSpring(mx, { stiffness: 50, damping: 20 });
-  const smy = useSpring(my, { stiffness: 50, damping: 20 });
-  const pxLayer = useTransform(smx, (v) => (v - 0.5) * -40);
-  const pyLayer = useTransform(smy, (v) => (v - 0.5) * -30);
-
-  return (
-    <section
-      ref={wrapRef}
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width);
-        my.set((e.clientY - r.top) / r.height);
-      }}
-      className="grain relative bg-bone text-ink"
-      style={{ height: `${signals.length * 100 + 60}vh` }}
-    >
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
-        {/* backdrop grid */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-            color: "oklch(0.14 0.01 260)",
-          }}
-        />
-        {/* floating orbs */}
-        <motion.div
-          aria-hidden
-          style={{ y: orbY, x: pxLayer }}
-          className="pointer-events-none absolute -left-40 top-1/4 h-[520px] w-[520px] rounded-full blur-3xl"
-        >
-          <div className="h-full w-full rounded-full bg-[radial-gradient(circle,oklch(0.5_0.26_295_/_0.25),transparent_65%)]" />
-        </motion.div>
-        <motion.div
-          aria-hidden
-          style={{ y: orbY, x: pyLayer }}
-          className="pointer-events-none absolute -right-40 bottom-0 h-[560px] w-[560px] rounded-full blur-3xl"
-        >
-          <div className="h-full w-full rounded-full bg-[radial-gradient(circle,oklch(0.68_0.22_35_/_0.22),transparent_65%)]" />
-        </motion.div>
-
-        {/* scrolling background words */}
-        <motion.div
-          aria-hidden
-          style={{ x: bgX }}
-          className="pointer-events-none absolute left-0 right-0 top-[18%] whitespace-nowrap font-serif text-[22vw] italic leading-none text-ink/[0.045]"
-        >
-          signal · signal · signal · signal · signal ·
-        </motion.div>
-        <motion.div
-          aria-hidden
-          style={{ x: bgX2 }}
-          className="pointer-events-none absolute left-0 right-0 bottom-[8%] whitespace-nowrap font-serif text-[18vw] italic leading-none text-ink/[0.035]"
-        >
-          shipped · trusted · retained · shipped · trusted ·
-        </motion.div>
-
-        {/* header */}
-        <motion.header
-          style={{ opacity: headerOpacity }}
-          className="relative z-10 flex items-start justify-between gap-6 px-6 pt-28 md:px-14 md:pt-24"
-        >
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 09 — Signal</p>
-            <h2 className="mt-5 max-w-[9ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
-              What the
-              <br />
-              <span className="text-acid">receipts</span> say.
-            </h2>
-          </div>
-          <div className="hidden max-w-xs text-right md:block">
-            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
-              Unedited excerpts from
-              <br />
-              operators who signed the PO.
+        <div className="col-span-12 md:col-span-9">
+          <h2 className="max-w-4xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
+            Work Directly With the Developer
+            <span className="font-serif italic text-acid"> Building Your Project</span>
+          </h2>
+          <div className="mt-10 max-w-3xl space-y-5 text-base leading-relaxed text-mist md:text-lg">
+            <p>
+              You can explain the issue, review the proposed approach and discuss the implementation
+              with me directly.
+            </p>
+            <p>
+              I aim to make technical decisions understandable: what needs fixing, why a particular
+              approach fits, and what its limitations are. If the requirement needs investigation
+              first, that becomes part of the scope.
+            </p>
+            <p>
+              Whether you need a focused store fix or a complete build, the starting point is the
+              same: understand the requirement and agree on a workable next step.
             </p>
           </div>
-        </motion.header>
-
-        {/* card stage */}
-        <div className="relative z-10 flex-1">
-          {signals.map((s, i) => (
-            <SignalCard key={i} s={s} index={i} progress={scrollYProgress} />
-          ))}
-
-          {/* index rail */}
-          <div className="pointer-events-none absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-4 md:flex">
-            {signals.map((s, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <motion.span
-                  animate={{
-                    width: active === i ? 44 : 18,
-                    backgroundColor:
-                      active === i ? "oklch(0.14 0.01 260)" : "oklch(0.14 0.01 260 / 0.25)",
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className="h-px"
-                />
-                <span
-                  className={`font-mono text-[10px] uppercase tracking-[0.24em] transition-colors ${
-                    active === i ? "text-ink" : "text-mist/70"
-                  }`}
-                >
-                  0{i + 1} · {s.name.split(" ")[0]}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* stats footer */}
-        <div className="relative z-10 grid grid-cols-2 gap-y-6 border-t border-ink/10 bg-bone/60 px-6 py-6 backdrop-blur-md md:grid-cols-4 md:px-14 md:py-8">
-          {stats.map((st) => (
-            <div key={st.label} className="flex flex-col">
-              <span className="font-serif text-4xl italic leading-none text-ink md:text-5xl">
-                <SignalCounter to={st.value} suffix={st.suffix} />
-              </span>
-              <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
-                {st.label}
-              </span>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -1035,18 +781,18 @@ function ClosingCTA() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,oklch(0.86_0.19_105_/_0.25),transparent_70%)] blur-3xl"
       />
       <div className="relative mx-auto max-w-[1400px] text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 11 — Next</p>
+        <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ 10 — Next</p>
         <h2 className="mx-auto mt-8 max-w-5xl font-serif text-6xl italic leading-[0.95] tracking-tight md:text-[9vw]">
-          Have a project
+          Have a Store Problem
           <br />
-          ready to <span className="text-acid">grow?</span>
+          or a <span className="text-acid">Project in Mind?</span>
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-bone/70 md:text-lg">
-          Let&apos;s build a faster, smarter, and more scalable solution for your business.
+          Let&apos;s define what needs to happen and the best way to move it forward.
         </p>
         <div className="mt-12 flex justify-center gap-3">
           <MagneticLink to="/contact" variant="light">
-            Start a project
+            Discuss Your Project
           </MagneticLink>
           <MagneticLink to="/portfolio" variant="ghost">
             View My Work
@@ -1060,43 +806,48 @@ function ClosingCTA() {
 /* ————————————— FAQ + CONTACT ————————————— */
 const faqs = [
   {
-    q: "What types of projects do you work on?",
-    a: "I build Shopify and ecommerce stores, AI automation systems, and full-stack web applications for growing brands, SaaS companies, and agencies.",
-    tag: "Projects",
-  },
-  {
-    q: "Do you work with international clients?",
-    a: "Yes. I work remotely with clients across the US, UK, Europe, Australia, Canada, the GCC, and other international markets.",
-    tag: "Global",
-  },
-  {
-    q: "Can you improve an existing Shopify store?",
-    a: "Yes. I can improve its design, user experience, speed, checkout, functionality, and conversion performance without rebuilding everything unnecessarily.",
+    q: "Can you improve my existing Shopify store?",
+    a: "Yes. I can review an existing store and help with theme changes, app conflicts, broken features, mobile usability and performance. A full redesign is only one possible option; the scope depends on the problems we find.",
     tag: "Shopify",
   },
   {
-    q: "Do you build custom AI automation?",
-    a: "Yes. I develop AI agents, chatbots, RAG systems, automated workflows, web-scraping tools, and integrations based on your existing processes.",
-    tag: "AI",
+    q: "Do you build custom Shopify themes and apps?",
+    a: "Yes. My work includes Liquid themes, Online Store 2.0 sections, Shopify app functionality and integrations. Share the feature or workflow you need so we can determine the appropriate approach.",
+    tag: "Themes",
   },
   {
-    q: "Can you build a custom web application?",
-    a: "Yes. I build SaaS platforms, dashboards, B2B portals, internal tools, APIs, and scalable business applications.",
+    q: "Do you work with international clients?",
+    a: "Yes. I work remotely with clients and agencies. We can agree on communication, review points and suitable working-hour overlap before starting.",
+    tag: "Global",
+  },
+  {
+    q: "Can you build a custom web application or SaaS MVP?",
+    a: "Yes. I can help scope and develop a custom application, dashboard, portal or SaaS MVP. We start by defining its users, core workflow and required integrations so the first release has a clear purpose.",
     tag: "Applications",
   },
   {
-    q: "How long does a project take?",
-    a: "Most projects take between 2 and 8 weeks. The final timeline depends on the scope, integrations, complexity, and required testing.",
+    q: "Do you work with WordPress and WooCommerce?",
+    a: "Yes. I build and customize WordPress websites and WooCommerce stores, including Elementor layouts, themes, integrations and improvements to existing functionality.",
+    tag: "WordPress",
+  },
+  {
+    q: "Can you help with automation and web scraping?",
+    a: "Yes. I develop Python scripts for data collection and repetitive workflows. AI-assisted requirements can begin with a scoped prototype to assess feasibility before committing to a wider implementation.",
+    tag: "Automation",
+  },
+  {
+    q: "How long will my project take?",
+    a: "The timeline depends on the scope, current codebase, integrations and content readiness. A focused fix and a complete application require different plans. We agree on an estimated timeline after reviewing the requirements.",
     tag: "Timeline",
   },
   {
-    q: "Do you provide ongoing support?",
-    a: "Yes. Ongoing development, maintenance, performance monitoring, and improvement plans are available after launch.",
+    q: "Do you offer support after launch?",
+    a: "Post-launch fixes, maintenance and further development can be included in the engagement. We agree on the scope and support arrangements before work begins.",
     tag: "Support",
   },
   {
     q: "How do we get started?",
-    a: "Complete the project form with your requirements, budget, and timeline. I’ll review the details and respond within 24 hours.",
+    a: "Send your website URL, describe what you need and include any relevant designs or examples. If you are starting from scratch, explain what you want users to be able to do. I’ll review the information and suggest the next step.",
     tag: "Kickoff",
   },
 ];
@@ -1211,10 +962,7 @@ function FaqContact() {
     name: "",
     email: "",
     company: "",
-    website: "",
-    projectType: "Shopify & Ecommerce",
-    budget: "$5K–$10K",
-    timeline: "Flexible",
+    projectType: "Shopify Store",
     details: "",
   });
   const [sent, setSent] = useState(false);
@@ -1227,15 +975,14 @@ function FaqContact() {
   const sbx = useSpring(bx, { stiffness: 200, damping: 15 });
   const sby = useSpring(by, { stiffness: 200, damping: 15 });
 
-  const projectTypes = ["Shopify & Ecommerce", "AI Automation", "Full-Stack Application"];
-  const budgets = ["$3K–$5K", "$5K–$10K", "$10K–$25K", "$25K+"];
-  const timelines = ["As Soon as Possible", "Within 1 Month", "Within 2–3 Months", "Flexible"];
-
-  const trust = [
-    { v: "100+", l: "Projects shipped" },
-    { v: "24h", l: "Reply time" },
-    { v: "24", l: "Countries" },
-    { v: "94%", l: "Renewal rate" },
+  const projectTypes = [
+    "Shopify Store",
+    "Theme or App Development",
+    "Store Fixes & Optimization",
+    "WordPress or WooCommerce",
+    "Web Application",
+    "Automation & Data",
+    "Not Sure Yet",
   ];
 
   return (
@@ -1281,23 +1028,13 @@ function FaqContact() {
         >
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
-              / 10 — Consult
+              / 09 — Consult
             </p>
             <h2 className="mt-6 max-w-[14ch] font-serif text-5xl italic leading-[0.9] md:text-[88px]">
               Questions,
               <br />
               then <span className="text-acid">answers</span>.
             </h2>
-          </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-3 md:justify-end">
-            {trust.map((t) => (
-              <div key={t.l} className="flex items-baseline gap-2">
-                <span className="font-serif text-2xl italic text-bone">{t.v}</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-mist">
-                  {t.l}
-                </span>
-              </div>
-            ))}
           </div>
         </motion.div>
 
@@ -1353,13 +1090,15 @@ function FaqContact() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
-                      Start a project
+                      Project inquiry
                     </p>
                     <h3 className="mt-3 font-serif text-3xl italic leading-tight md:text-4xl">
-                      Tell me what
-                      <br />
-                      you&apos;re building.
+                      Tell Me What You Want to Build or Improve
                     </h3>
+                    <p className="mt-4 text-sm leading-relaxed text-bone/65">
+                      Share your current website, the issue you are facing or the feature you have in
+                      mind. A clear starting point helps us work out what the project needs.
+                    </p>
                   </div>
                   <span className="relative flex h-3 w-3">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-acid opacity-60" />
@@ -1402,21 +1141,15 @@ function FaqContact() {
                         },
                         {
                           key: "email",
-                          label: "Work Email",
+                          label: "Email address",
                           type: "email",
                           placeholder: "ada@studio.com",
                         },
                         {
                           key: "company",
-                          label: "Company",
+                          label: "Company or website",
                           type: "text",
-                          placeholder: "Analytical Engines Co.",
-                        },
-                        {
-                          key: "website",
-                          label: "Website URL",
-                          type: "url",
-                          placeholder: "https://example.com",
+                          placeholder: "studio.com",
                         },
                       ].map((field) => (
                         <FloatingField
@@ -1455,50 +1188,6 @@ function FaqContact() {
                         </div>
                       </div>
 
-                      <div>
-                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
-                          Budget range
-                        </label>
-                        <div className="mt-3 grid grid-cols-2 gap-2">
-                          {budgets.map((b) => (
-                            <button
-                              type="button"
-                              key={b}
-                              onClick={() => setForm({ ...form, budget: b })}
-                              className={`rounded-xl border px-3 py-3 text-left font-mono text-[11px] tracking-wide transition-all ${
-                                form.budget === b
-                                  ? "border-acid/60 bg-acid/10 text-bone"
-                                  : "border-white/10 bg-white/[0.02] text-bone/60 hover:border-white/30 hover:text-bone"
-                              }`}
-                            >
-                              {b}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
-                          Timeline
-                        </label>
-                        <div className="mt-3 grid grid-cols-2 gap-2">
-                          {timelines.map((timeline) => (
-                            <button
-                              type="button"
-                              key={timeline}
-                              onClick={() => setForm({ ...form, timeline })}
-                              className={`rounded-xl border px-3 py-3 text-left font-mono text-[11px] tracking-wide transition-all ${
-                                form.timeline === timeline
-                                  ? "border-acid/60 bg-acid/10 text-bone"
-                                  : "border-white/10 bg-white/[0.02] text-bone/60 hover:border-white/30 hover:text-bone"
-                              }`}
-                            >
-                              {timeline}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
                       <div className="relative">
                         <label className="font-mono text-[10px] uppercase tracking-[0.28em] text-mist">
                           Project details
@@ -1512,7 +1201,7 @@ function FaqContact() {
                               setForm({ ...form, details: e.target.value.slice(0, 1000) })
                             }
                             rows={4}
-                            placeholder="What are you building, and what does 'shipped' look like?"
+                            placeholder="What needs to work better? Include your website URL, required features and any deadline you are working toward."
                             className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3 font-sans text-sm text-bone placeholder:text-mist/60 outline-none transition-all focus:border-acid/60 focus:bg-white/[0.04]"
                           />
                           <motion.span

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
+import { MagneticCta, PageHero } from "@/components/site/page-hero";
 import { Marquee, SiteShell } from "@/components/site/shell";
 
 const services = [
@@ -328,97 +329,36 @@ function ShopifyEcommerceDevelopmentPage() {
         <style>{`.shopify-motion { opacity: 1 !important; transform: none !important; filter: none !important; }`}</style>
       </noscript>
 
-      <section className="relative overflow-hidden bg-ink px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-52">
-        <motion.div
-          aria-hidden
-          animate={reduceMotion ? undefined : { scale: [1, 1.05, 1], opacity: [0.55, 0.85, 0.55] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="pointer-events-none absolute -right-20 top-28 h-80 w-80 rounded-full border border-acid/25 md:h-[34rem] md:w-[34rem]"
-        />
-        <motion.div
-          aria-hidden
-          animate={reduceMotion ? undefined : { x: [0, 8, 0], y: [0, -16, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="pointer-events-none absolute right-10 top-52 h-40 w-40 rounded-full border border-bone/10 md:right-40 md:h-72 md:w-72"
-        />
-        <div className="relative mx-auto max-w-[1400px]">
-          <motion.nav
-            aria-label="Breadcrumb"
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: revealEase }}
-            className="shopify-motion flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-mist"
-          >
-            <Link
-              to="/"
-              className="transition-colors hover:text-acid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-acid"
-            >
-              Home
-            </Link>
-            <span aria-hidden>/</span>
-            <Link
-              to="/services"
-              className="transition-colors hover:text-acid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-acid"
-            >
-              Services
-            </Link>
-            <span aria-hidden>/</span>
-            <span aria-current="page" className="text-bone/70">
-              Shopify and ecommerce development
-            </span>
-          </motion.nav>
-
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.7, ease: revealEase }}
-            className="shopify-motion mt-12 font-mono text-xs uppercase tracking-[0.24em] text-acid"
-          >
-            Shopify and Ecommerce Development
-          </motion.p>
-          <motion.h1
-            initial={reduceMotion ? false : { opacity: 0, y: 40, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.16, duration: 0.9, ease: revealEase }}
-            className="shopify-motion mt-6 max-w-6xl text-balance font-display text-5xl leading-[0.9] tracking-tight sm:text-6xl md:text-[7.4vw]"
-          >
+      <PageHero
+        eyebrow="Shopify and Ecommerce Development"
+        breadcrumb={[
+          { label: "Home", to: "/" },
+          { label: "Services", to: "/services" },
+          { label: "Shopify and ecommerce development" },
+        ]}
+        title={
+          <>
             Shopify Development Services for{" "}
-            <span className="block font-serif italic text-acid">Growing Ecommerce Brands</span>
-          </motion.h1>
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.32, duration: 0.8, ease: revealEase }}
-            className="shopify-motion mt-8 max-w-2xl text-base leading-relaxed text-bone/75 md:text-xl"
-          >
-            I design, build and improve Shopify stores for brands that need stronger performance,
-            clearer customer journeys and reliable custom functionality. From theme development and
-            migrations to Shopify Plus, integrations and ongoing improvements, every engagement is
-            built around the needs of your business.
-          </motion.p>
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.46, duration: 0.7, ease: revealEase }}
-            className="shopify-motion mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
-          >
-            <PrimaryLink to="/contact" data-analytics="shopify-hero-primary">
-              Discuss Your Shopify Project
-            </PrimaryLink>
-            <SecondaryLink to="/portfolio" data-analytics="shopify-hero-work">
+            <span className="font-serif italic text-acid">Growing Ecommerce Brands</span>
+          </>
+        }
+        actions={
+          <>
+            <MagneticCta to="/contact">Discuss Your Shopify Project</MagneticCta>
+            <MagneticCta to="/portfolio" variant="ghost">
               View Shopify Work
-            </SecondaryLink>
-          </motion.div>
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.62, duration: 0.8 }}
-            className="shopify-motion mt-14 border-t border-white/10 pt-6 font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-mist md:text-xs"
-          >
-            Remote Shopify development for teams across the US, UK, Australia, Europe and worldwide.
-          </motion.p>
-        </div>
-      </section>
+            </MagneticCta>
+          </>
+        }
+        rail="Remote Shopify development for teams across the US, UK, Australia, Europe and worldwide."
+      >
+        <p>
+          I design, build and improve Shopify stores for brands that need stronger performance,
+          clearer customer journeys and reliable custom functionality. From theme development and
+          migrations to Shopify Plus, integrations and ongoing improvements, every engagement is
+          built around the needs of your business.
+        </p>
+      </PageHero>
 
       <Marquee
         items={[
@@ -806,14 +746,14 @@ function ShopifyEcommerceDevelopmentPage() {
       </section>
 
       <section className="bg-ink px-6 py-24 md:px-10 md:py-40">
-        <div className="mx-auto max-w-[1400px] border-y border-white/10 py-14 md:py-20">
+        <div className="mx-auto max-w-[1400px] border-y border-white/10 py-14 md:py-20 text-center">
           <SectionLabel>/ 11 — Next</SectionLabel>
           <motion.h2
             initial={reduceMotion ? false : { opacity: 0, y: 40, filter: "blur(8px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={revealViewport}
             transition={{ duration: 0.9, ease: revealEase }}
-            className="shopify-motion mt-6 max-w-5xl text-balance font-display text-5xl leading-[0.9] tracking-tight md:text-8xl"
+            className="shopify-motion mx-auto mt-6 max-w-5xl text-balance font-display text-4xl leading-[0.95] tracking-tight md:text-6xl"
           >
             Need a Shopify Store That Is Ready for
             <span className="block font-serif italic text-acid">What Comes Next?</span>
@@ -823,7 +763,7 @@ function ShopifyEcommerceDevelopmentPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={revealViewport}
             transition={{ delay: 0.08, duration: 0.7, ease: revealEase }}
-            className="shopify-motion mt-8 max-w-2xl text-base leading-relaxed text-bone/65 md:text-lg"
+            className="shopify-motion mx-auto mt-8 max-w-2xl text-base leading-relaxed text-bone/65 md:text-lg"
           >
             Share your current store, goals and technical requirements. I&apos;ll review the project
             and recommend the most practical next step—whether that is a focused improvement,
@@ -834,7 +774,7 @@ function ShopifyEcommerceDevelopmentPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={revealViewport}
             transition={{ delay: 0.16, duration: 0.7, ease: revealEase }}
-            className="shopify-motion mt-10 flex flex-col gap-3 sm:flex-row"
+            className="shopify-motion mt-10 flex flex-col gap-3 sm:flex-row justify-center items-center"
           >
             <PrimaryLink to="/contact" data-analytics="shopify-final-primary">
               Discuss Your Shopify Project
