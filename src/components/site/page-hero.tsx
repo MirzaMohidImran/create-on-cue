@@ -43,7 +43,7 @@ export function PageHero({
         mx.set((e.clientX - r.left) / r.width);
         my.set((e.clientY - r.top) / r.height);
       }}
-      className="grain relative isolate flex min-h-[88svh] flex-col overflow-hidden bg-ink px-6 pt-32 md:px-10"
+      className="grain relative isolate flex min-h-0 flex-col overflow-hidden bg-ink px-6 pt-28 md:min-h-[88svh] md:px-10 md:pt-32"
     >
       <motion.div
         aria-hidden
@@ -66,19 +66,19 @@ export function PageHero({
         }}
       />
 
-      <div className="relative flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.24em] text-mist">
-        <div className="min-w-0 flex-1">
+      <div className="relative flex flex-col gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-mist sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:text-[11px] sm:tracking-[0.24em]">
+        <div className="min-w-0">
           {breadcrumb?.length ? (
-            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2">
+            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-x-2 gap-y-1">
               {breadcrumb.map((crumb, i) => (
-                <span key={`${crumb.label}-${i}`} className="flex items-center gap-2">
-                  {i > 0 ? <span aria-hidden>/</span> : null}
+                <span key={`${crumb.label}-${i}`} className="inline-flex items-center gap-2">
+                  {i > 0 ? <span aria-hidden className="text-mist/60">/</span> : null}
                   {crumb.to ? (
                     <Link to={crumb.to} className="transition-colors hover:text-acid">
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span aria-current="page" className="text-bone/70">
+                    <span aria-current="page" className="text-bone">
                       {crumb.label}
                     </span>
                   )}
@@ -89,16 +89,17 @@ export function PageHero({
             <span>{eyebrow ?? "Mohid Imran"}</span>
           )}
         </div>
-        <span className="flex items-center gap-2">
+        <span className="inline-flex shrink-0 items-center gap-2 text-mist">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-acid" />
-          Available for Projects · Worldwide
+          <span className="sm:hidden">Available worldwide</span>
+          <span className="hidden sm:inline">Available for Projects · Worldwide</span>
         </span>
       </div>
 
-      <div className="relative mt-auto grid flex-1 grid-cols-12 items-end gap-8 pb-14 pt-20">
+      <div className="relative mt-10 grid flex-1 grid-cols-12 items-end gap-8 pb-12 pt-8 md:mt-auto md:pb-14 md:pt-20">
         <div className="col-span-12 md:col-span-8">
           {eyebrow && breadcrumb?.length ? (
-            <p className="mb-5 font-mono text-xs uppercase tracking-[0.24em] text-acid">
+            <p className="mb-4 max-w-xl font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-white sm:mb-5 sm:text-xs sm:tracking-[0.22em]">
               {eyebrow}
             </p>
           ) : null}
@@ -106,7 +107,7 @@ export function PageHero({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-5xl text-balance font-display text-4xl leading-[0.95] tracking-tight text-bone sm:text-5xl md:text-[4.8vw]"
+            className="max-w-5xl text-pretty font-display text-[2.35rem] leading-[1.05] tracking-tight text-bone sm:text-5xl sm:leading-[0.95] md:text-[4.8vw]"
           >
             {title}
           </motion.h1>
@@ -115,7 +116,7 @@ export function PageHero({
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="mt-6 max-w-3xl font-serif text-2xl italic text-bone/90 md:text-3xl"
+              className="mt-5 max-w-3xl text-pretty font-serif text-xl italic leading-snug text-bone/90 sm:mt-6 sm:text-2xl md:text-3xl"
             >
               {subtitle}
             </motion.div>
@@ -126,20 +127,24 @@ export function PageHero({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.8 }}
-          className="col-span-12 space-y-6 md:col-span-4"
+          className="col-span-12 space-y-5 md:col-span-4 md:space-y-6"
         >
           {children ? (
-            <div className="space-y-4 text-balance text-sm leading-relaxed text-bone/70 md:text-base">
+            <div className="space-y-4 text-pretty text-sm leading-relaxed text-bone/70 md:text-base">
               {children}
             </div>
           ) : null}
-          {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
+          {actions ? (
+            <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap [&>*]:w-full sm:[&>*]:w-auto [&_a]:w-full sm:[&_a]:w-auto [&_a]:justify-center sm:[&_a]:justify-start">
+              {actions}
+            </div>
+          ) : null}
         </motion.div>
       </div>
 
       {strip ? (
-        <div className="relative border-t border-white/10 py-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-mist md:text-xs">
+        <div className="relative border-t border-white/10 py-5 md:py-6">
+          <p className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-mist md:block md:text-xs">
             {strip}
           </p>
         </div>

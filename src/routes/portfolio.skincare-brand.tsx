@@ -86,7 +86,7 @@ function SkincareBrandPage() {
   return (
     <SiteShell>
       <PageHero
-        eyebrow="Figma Design · Shopify Development · SEO · Performance"
+        eyebrow="Figma Design · Shopify Dev · SEO · Performance"
         breadcrumb={[
           { label: "Home", to: "/" },
           { label: "Portfolio", to: "/portfolio" },
@@ -98,7 +98,7 @@ function SkincareBrandPage() {
             <span className="font-serif italic text-acid">Shopify</span>
           </>
         }
-        subtitle={<>A skincare brand storefront built from design through launch</>}
+        subtitle={<>A skincare brand storefront built from design through launch.</>}
         actions={
           <>
             <MagneticCta to="/contact">Discuss a Similar Project</MagneticCta>
@@ -107,7 +107,7 @@ function SkincareBrandPage() {
             </MagneticCta>
           </>
         }
-        rail="Figma Design · Shopify Development · SEO · Performance"
+        rail="Figma Design · Shopify Dev · SEO · Performance"
       >
         <p>
           A skincare storefront built from scratch, combining custom design, Shopify development,
