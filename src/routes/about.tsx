@@ -65,6 +65,12 @@ const projects = [
     text: "A luxury fashion theme project built using Online Store 2.0 architecture, targeting Shopify Theme Store submission.",
     tech: "The project focused on translating a visual direction into responsive storefront templates.",
   },
+  {
+    title: "Skincare Brand",
+    kind: "Figma Design · Shopify Development",
+    text: "A skincare Shopify storefront designed in Figma and built for launch, with foundational SEO and strong measured homepage performance.",
+    tech: "The work covered custom design, Shopify development, conversion-focused UX and performance optimization.",
+  },
 ];
 
 const principles = [
@@ -264,7 +270,7 @@ function AboutPage() {
               View Development Projects →
             </Link>
           </div>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-3">
+          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2">
             {projects.map((project, i) => (
               <motion.article
                 key={project.title}

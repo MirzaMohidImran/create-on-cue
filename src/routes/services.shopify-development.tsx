@@ -132,6 +132,10 @@ const projects = [
     title: "Blaze",
     text: "A luxury fashion theme project developed using Online Store 2.0 architecture, targeting Shopify Theme Store submission.",
   },
+  {
+    title: "Skincare Brand",
+    text: "A Figma-to-Shopify storefront for a skincare brand, covering design, development, foundational SEO and homepage performance.",
+  },
 ];
 
 const processSteps = [
@@ -428,7 +432,7 @@ function ShopifyDevelopmentPage() {
               View My Shopify Projects
             </TextLink>
           </div>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 md:grid-cols-3">
+          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 md:grid-cols-2 lg:grid-cols-4">
             {projects.map((project, i) => (
               <motion.article
                 key={project.title}

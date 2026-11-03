@@ -31,6 +31,7 @@ type PageLink =
   | "/portfolio/salesforge"
   | "/portfolio/mobuxe"
   | "/portfolio/blaze"
+  | "/portfolio/skincare-brand"
   | "/resume"
   | "/services"
   | ServicePath;
@@ -75,6 +76,13 @@ const blazeFocus = [
   "Theme structure and code quality.",
 ];
 
+const skincareFocus = [
+  "Figma design through Shopify launch.",
+  "Conversion-focused shopping experience.",
+  "Foundational SEO for launch readiness.",
+  "100/100 desktop and 97/100 mobile homepage performance.",
+];
+
 const themeTech = ["Liquid", "Online Store 2.0", "HTML", "CSS", "JavaScript"];
 
 const clientProjects = [
@@ -109,6 +117,14 @@ const experienceGuides = [
       "Share the current store and the issue so we can determine which experience is relevant.",
     link: "Explore Shopify Support",
     to: "/services/shopify-support" as const,
+  },
+  {
+    title: "You Need a Store Designed and Built From Scratch",
+    text: "The skincare brand case study shows a full Figma-to-Shopify build with foundational SEO and measured homepage performance.",
+    follow:
+      "Share your brand direction, designs or product catalog so we can define the storefront scope.",
+    link: "Explore Shopify Development",
+    to: "/services/shopify-development" as const,
   },
 ];
 
@@ -417,61 +433,121 @@ function PortfolioPage() {
       ) : null}
 
       {showClients ? (
-        <section
-          id="client-storefront-work"
-          className="scroll-mt-28 bg-bone px-6 py-24 text-ink md:px-10 md:py-40"
-        >
-          <div className="mx-auto max-w-[1400px]">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
-              / Client Storefront Work
-            </p>
-            <h2 className="mt-6 max-w-4xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
-              Development Across Client
-              <span className="font-serif italic text-acid"> Ecommerce Projects</span>
-            </h2>
-            <div className="mt-8 max-w-3xl space-y-5 text-base leading-relaxed text-mist md:text-lg">
-              <p>
-                My client project experience includes Apolo-Untold, SweetNyWellness, Kaasida,
-                Outstanding Nutrition and ArtfullyWalls.
+        <>
+          <section
+            id="skincare-brand"
+            className="scroll-mt-28 bg-bone px-6 py-24 text-ink md:px-10 md:py-40"
+          >
+            <div className="mx-auto max-w-[1400px]">
+              <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+                / Client Storefront Work
               </p>
-              <p>
-                Across these projects, my work has included Shopify theme development, app
-                integration, responsive layouts and frontend optimization. The scope varied between
-                engagements.
-              </p>
-            </div>
-
-            <div className="mt-14">
-              <h3 className="font-serif text-2xl italic md:text-3xl">Selected Client Projects</h3>
-              <ul className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-mist md:text-base">
-                {clientProjects.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-acid" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink to="/contact" tone="ink">
-                Discuss Your Storefront
-              </PrimaryLink>
-              <Link
-                to="/services/shopify-development"
-                className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-ink/20 px-6 py-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-ink transition-colors hover:border-acid hover:text-acid md:text-xs"
-              >
-                Explore Shopify Development
-                <span
-                  aria-hidden
-                  className="transition-transform duration-300 group-hover:translate-x-1"
+              <h2 className="mt-6 max-w-4xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
+                <Link
+                  to="/portfolio/skincare-brand"
+                  className="transition-colors hover:text-acid"
                 >
-                  ↗
-                </span>
-              </Link>
+                  Skincare
+                  <span className="font-serif italic text-acid"> Brand</span>
+                </Link>
+              </h2>
+              <dl className="mt-8 grid max-w-3xl gap-4 text-sm md:grid-cols-2 md:text-base">
+                <MetaItem label="Project Type" value="Shopify Storefront" />
+                <MetaItem label="My Contribution" value="UI/UX design & Shopify development" />
+              </dl>
+              <div className="mt-8 max-w-3xl space-y-5 text-base leading-relaxed text-mist md:text-lg">
+                <p>
+                  Designed and built a skincare Shopify store from scratch, taking the project from
+                  Figma to launch. Delivered a responsive, conversion-focused shopping experience
+                  with foundational SEO, achieving{" "}
+                  <strong className="font-medium text-ink">100/100 desktop</strong> and{" "}
+                  <strong className="font-medium text-ink">97/100 mobile</strong> performance in
+                  supplied PageSpeed Insights homepage tests.
+                </p>
+              </div>
+
+              <div className="mt-14 border-t border-ink/10 pt-10">
+                <h3 className="font-serif text-2xl italic md:text-3xl">Project Focus</h3>
+                <ul className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-mist md:text-base">
+                  {skincareFocus.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-acid" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
+                <TextLink to="/portfolio/skincare-brand" tone="ink" className="mt-0">
+                  View Case Study
+                </TextLink>
+                <TextLink to="/services/shopify-development" tone="ink" className="mt-0">
+                  Shopify Development
+                </TextLink>
+                <PrimaryLink to="/contact" tone="ink">
+                  Discuss a Similar Project
+                </PrimaryLink>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section
+            id="client-storefront-work"
+            className="scroll-mt-28 bg-ink px-6 py-24 md:px-10 md:py-40"
+          >
+            <div className="mx-auto max-w-[1400px]">
+              <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">
+                / Client Storefront Work
+              </p>
+              <h2 className="mt-6 max-w-4xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
+                Development Across Client
+                <span className="font-serif italic text-acid"> Ecommerce Projects</span>
+              </h2>
+              <div className="mt-8 max-w-3xl space-y-5 text-base leading-relaxed text-bone/70 md:text-lg">
+                <p>
+                  My client project experience includes Apolo-Untold, SweetNyWellness, Kaasida,
+                  Outstanding Nutrition and ArtfullyWalls.
+                </p>
+                <p>
+                  Across these projects, my work has included Shopify theme development, app
+                  integration, responsive layouts and frontend optimization. The scope varied
+                  between engagements.
+                </p>
+              </div>
+
+              <div className="mt-14">
+                <h3 className="font-serif text-2xl italic md:text-3xl">Selected Client Projects</h3>
+                <ul className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-bone/70 md:text-base">
+                  {clientProjects.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-acid" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <PrimaryLink to="/contact">
+                  Discuss Your Storefront
+                </PrimaryLink>
+                <Link
+                  to="/services/shopify-development"
+                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/20 px-6 py-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-bone transition-colors hover:border-acid hover:text-acid md:text-xs"
+                >
+                  Explore Shopify Development
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    ↗
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </section>
+        </>
       ) : null}
 
       <section className="bg-ink px-6 py-24 md:px-10 md:py-40">

@@ -121,6 +121,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.mohidimran.com/portfolio/skincare-brand/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.mohidimran.com/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

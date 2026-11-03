@@ -472,6 +472,15 @@ const featured = [
   },
   {
     n: "04",
+    title: "Skincare Brand",
+    kind: "Figma Design · Shopify Development",
+    metric: "100/100 desktop",
+    line: "Designed and built a skincare Shopify store from scratch, from Figma to launch, with foundational SEO and 100/100 desktop / 97/100 mobile homepage performance.",
+    tech: "Figma · Shopify · SEO · Performance",
+    color: "oklch(0.78 0.08 230)",
+  },
+  {
+    n: "05",
     title: "Client Storefront Work",
     kind: "Shopify Development & Optimization",
     metric: "Multi-brand",

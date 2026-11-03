@@ -24,7 +24,12 @@ export const Route = createFileRoute("/services/shopify-store-development")({
   component: ShopifyStoreDevelopmentPage,
 });
 
-type PageLink = "/contact" | "/portfolio" | "/services" | ServicePath;
+type PageLink =
+  | "/contact"
+  | "/portfolio"
+  | "/portfolio/skincare-brand"
+  | "/services"
+  | ServicePath;
 
 const situations = [
   {
@@ -489,13 +494,22 @@ function ShopifyStoreDevelopmentPage() {
                 storefront templates and reusable sections.
               </p>
               <p>
+                A separate skincare brand case study shows a full Figma-to-Shopify storefront
+                build with foundational SEO and measured homepage performance.
+              </p>
+              <p>
                 My portfolio provides a starting point for discussing the type of implementation
                 your store requires.
               </p>
             </div>
-            <TextLink to="/portfolio" tone="ink">
-              Explore My Shopify Work
-            </TextLink>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
+              <TextLink to="/portfolio" tone="ink" className="mt-0">
+                Explore My Shopify Work
+              </TextLink>
+              <TextLink to="/portfolio/skincare-brand" tone="ink" className="mt-0">
+                View Skincare Brand Case Study
+              </TextLink>
+            </div>
           </div>
         </div>
       </section>

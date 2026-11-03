@@ -42,6 +42,7 @@ Mohid Imran is an independent Shopify and full stack developer based in Pakistan
 - [SalesForge](https://www.mohidimran.com/portfolio/salesforge/): Shopify app — bundles, recommendations, promotions and cart features
 - [Mobuxe](https://www.mohidimran.com/portfolio/mobuxe/): Online Store 2.0 theme with a large section library
 - [Blaze](https://www.mohidimran.com/portfolio/blaze/): Luxury fashion Online Store 2.0 theme project
+- [Skincare Brand](https://www.mohidimran.com/portfolio/skincare-brand/): Figma-to-Shopify storefront with foundational SEO and homepage performance
 
 ## Articles
 

@@ -24,6 +24,7 @@ import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
 import { Route as PortfolioBlazeRouteImport } from './routes/portfolio.blaze'
 import { Route as PortfolioMobuxeRouteImport } from './routes/portfolio.mobuxe'
 import { Route as PortfolioSalesforgeRouteImport } from './routes/portfolio.salesforge'
+import { Route as PortfolioSkincareBrandRouteImport } from './routes/portfolio.skincare-brand'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesAiAutomationRouteImport } from './routes/services.ai-automation'
 import { Route as ServicesDashboardPortalDevelopmentRouteImport } from './routes/services.dashboard-portal-development'
@@ -117,6 +118,11 @@ const PortfolioMobuxeRoute = PortfolioMobuxeRouteImport.update({
 const PortfolioSalesforgeRoute = PortfolioSalesforgeRouteImport.update({
   id: '/salesforge',
   path: '/salesforge',
+  getParentRoute: () => PortfolioRoute,
+} as any)
+const PortfolioSkincareBrandRoute = PortfolioSkincareBrandRouteImport.update({
+  id: '/skincare-brand',
+  path: '/skincare-brand',
   getParentRoute: () => PortfolioRoute,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
@@ -231,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/portfolio/blaze': typeof PortfolioBlazeRoute
   '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
   '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
+  '/portfolio/skincare-brand': typeof PortfolioSkincareBrandRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -262,6 +269,7 @@ export interface FileRoutesByTo {
   '/portfolio/blaze': typeof PortfolioBlazeRoute
   '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
   '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
+  '/portfolio/skincare-brand': typeof PortfolioSkincareBrandRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   '/portfolio/blaze': typeof PortfolioBlazeRoute
   '/portfolio/mobuxe': typeof PortfolioMobuxeRoute
   '/portfolio/salesforge': typeof PortfolioSalesforgeRoute
+  '/portfolio/skincare-brand': typeof PortfolioSkincareBrandRoute
   '/services/ai-automation': typeof ServicesAiAutomationRoute
   '/services/dashboard-portal-development': typeof ServicesDashboardPortalDevelopmentRoute
   '/services/full-stack-development': typeof ServicesFullStackDevelopmentRoute
@@ -333,6 +342,7 @@ export interface FileRouteTypes {
     | '/portfolio/blaze'
     | '/portfolio/mobuxe'
     | '/portfolio/salesforge'
+    | '/portfolio/skincare-brand'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -364,6 +374,7 @@ export interface FileRouteTypes {
     | '/portfolio/blaze'
     | '/portfolio/mobuxe'
     | '/portfolio/salesforge'
+    | '/portfolio/skincare-brand'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -398,6 +409,7 @@ export interface FileRouteTypes {
     | '/portfolio/blaze'
     | '/portfolio/mobuxe'
     | '/portfolio/salesforge'
+    | '/portfolio/skincare-brand'
     | '/services/ai-automation'
     | '/services/dashboard-portal-development'
     | '/services/full-stack-development'
@@ -536,6 +548,13 @@ declare module '@tanstack/react-router' {
       path: '/salesforge'
       fullPath: '/portfolio/salesforge'
       preLoaderRoute: typeof PortfolioSalesforgeRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
+    '/portfolio/skincare-brand': {
+      id: '/portfolio/skincare-brand'
+      path: '/skincare-brand'
+      fullPath: '/portfolio/skincare-brand'
+      preLoaderRoute: typeof PortfolioSkincareBrandRouteImport
       parentRoute: typeof PortfolioRoute
     }
     '/services/': {
@@ -677,6 +696,7 @@ interface PortfolioRouteChildren {
   PortfolioBlazeRoute: typeof PortfolioBlazeRoute
   PortfolioMobuxeRoute: typeof PortfolioMobuxeRoute
   PortfolioSalesforgeRoute: typeof PortfolioSalesforgeRoute
+  PortfolioSkincareBrandRoute: typeof PortfolioSkincareBrandRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
 }
 
@@ -684,6 +704,7 @@ const PortfolioRouteChildren: PortfolioRouteChildren = {
   PortfolioBlazeRoute: PortfolioBlazeRoute,
   PortfolioMobuxeRoute: PortfolioMobuxeRoute,
   PortfolioSalesforgeRoute: PortfolioSalesforgeRoute,
+  PortfolioSkincareBrandRoute: PortfolioSkincareBrandRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
 }
 
@@ -752,13 +773,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

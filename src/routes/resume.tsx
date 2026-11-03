@@ -27,7 +27,13 @@ export const Route = createFileRoute("/resume")({
   component: ResumePage,
 });
 
-type PageLink = "/contact" | "/portfolio" | "/resume" | "/services" | ServicePath;
+type PageLink =
+  | "/contact"
+  | "/portfolio"
+  | "/portfolio/skincare-brand"
+  | "/resume"
+  | "/services"
+  | ServicePath;
 
 const skillGroups = [
   {
@@ -140,6 +146,14 @@ const projects = [
     focus: "Responsive templates, product presentation and theme implementation.",
     link: "Custom Shopify Theme Development",
     to: "/services/shopify-theme-development" as const,
+  },
+  {
+    title: "Skincare Brand",
+    type: "Figma Design · Shopify Development",
+    text: "Designed and built a skincare Shopify store from scratch, taking the project from Figma to launch with foundational SEO and conversion-focused UX.",
+    focus: "100/100 desktop and 97/100 mobile homepage performance in supplied PageSpeed Insights tests.",
+    link: "View Skincare Brand Case Study",
+    to: "/portfolio/skincare-brand" as const,
   },
 ];
 
