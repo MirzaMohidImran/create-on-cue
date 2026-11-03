@@ -466,6 +466,29 @@ function PortfolioPage() {
                 </p>
               </div>
 
+              <div className="mt-12 grid gap-6 md:grid-cols-12 md:items-end">
+                <div className="overflow-hidden border border-ink/10 md:col-span-8">
+                  <img
+                    src="/portfolio/skincare-brand/storefront-desktop.png"
+                    alt="Desktop homepage of a skincare brand Shopify storefront"
+                    width={1024}
+                    height={587}
+                    className="h-auto w-full"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="mx-auto w-full max-w-[220px] overflow-hidden border border-ink/10 md:col-span-4 md:mx-0 md:max-w-none">
+                  <img
+                    src="/portfolio/skincare-brand/storefront-mobile.png"
+                    alt="Mobile homepage of a skincare brand Shopify storefront"
+                    width={392}
+                    height={811}
+                    className="h-auto w-full"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
               <div className="mt-14 border-t border-ink/10 pt-10">
                 <h3 className="font-serif text-2xl italic md:text-3xl">Project Focus</h3>
                 <ul className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-mist md:text-base">
