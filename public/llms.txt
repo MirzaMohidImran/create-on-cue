@@ -1,0 +1,54 @@
+# Mohid Imran
+
+> Shopify and full stack developer helping businesses build stores, custom themes, apps, websites and practical business tools.
+
+Mohid Imran is an independent Shopify and full stack developer based in Pakistan, working remotely with clients worldwide. Work covers Shopify storefronts, Liquid themes, app functionality, WordPress/WooCommerce, custom web applications, dashboards and automation.
+
+## Primary pages
+
+- [Home](https://www.mohidimran.com/): Overview of services, experience and how to start a project
+- [About](https://www.mohidimran.com/about/): Background, approach and working style
+- [Services](https://www.mohidimran.com/services/): Full list of development services
+- [Portfolio](https://www.mohidimran.com/portfolio/): Selected Shopify theme, app and client storefront work
+- [Resume](https://www.mohidimran.com/resume/): Skills, experience and technical background
+- [Contact](https://www.mohidimran.com/contact/): Project inquiry form and contact details
+- [Blog](https://www.mohidimran.com/blog/): Practical notes on Shopify, themes and development decisions
+
+## Shopify services
+
+- [Shopify Development](https://www.mohidimran.com/services/shopify-development/): Stores, themes, apps, integrations and fixes
+- [Shopify Store Development](https://www.mohidimran.com/services/shopify-store-development/): New stores and redesigns
+- [Shopify Theme Development](https://www.mohidimran.com/services/shopify-theme-development/): Custom Liquid / Online Store 2.0 themes and sections
+- [Shopify App Development](https://www.mohidimran.com/services/shopify-app-development/): Custom app functionality and integrations
+- [Headless Shopify](https://www.mohidimran.com/services/headless-shopify-development/): Custom storefronts beyond the default theme stack
+- [Shopify Support](https://www.mohidimran.com/services/shopify-support/): Troubleshooting and technical support
+- [Shopify CRO](https://www.mohidimran.com/services/shopify-cro/): Conversion-focused storefront improvements
+- [Shopify Speed Optimization](https://www.mohidimran.com/services/shopify-speed-optimization/): Performance and loading improvements
+- [Shopify Ecommerce Development](https://www.mohidimran.com/shopify-ecommerce-development/): Broader Shopify ecommerce development overview
+
+## Other services
+
+- [Full Stack Development](https://www.mohidimran.com/services/full-stack-development/)
+- [Web Application Development](https://www.mohidimran.com/services/web-application-development/)
+- [SaaS MVP Development](https://www.mohidimran.com/services/saas-mvp-development/)
+- [Dashboard & Portal Development](https://www.mohidimran.com/services/dashboard-portal-development/)
+- [WordPress Development](https://www.mohidimran.com/services/wordpress-development/)
+- [WooCommerce Development](https://www.mohidimran.com/services/woocommerce-development/)
+- [AI & Workflow Automation](https://www.mohidimran.com/services/ai-automation/)
+- [Web Scraping](https://www.mohidimran.com/services/web-scraping/)
+
+## Portfolio case studies
+
+- [SalesForge](https://www.mohidimran.com/portfolio/salesforge/): Shopify app — bundles, recommendations, promotions and cart features
+- [Mobuxe](https://www.mohidimran.com/portfolio/mobuxe/): Online Store 2.0 theme with a large section library
+- [Blaze](https://www.mohidimran.com/portfolio/blaze/): Luxury fashion Online Store 2.0 theme project
+
+## Articles
+
+- [Custom Shopify Theme vs Premium Theme](https://www.mohidimran.com/blog/custom-shopify-theme-vs-premium-theme/): When to customize an existing theme versus commissioning custom theme development
+
+## Contact
+
+- Website: https://www.mohidimran.com/contact/
+- Email: mirzamohidimran@gmail.com
+- Site map: https://www.mohidimran.com/sitemap.xml

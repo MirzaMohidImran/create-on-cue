@@ -84,6 +84,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Work with Mohid Imran for Shopify stores, custom themes, apps and web applications. Get help with store performance, user experience and technical fixes.",
       },
       { name: "author", content: "Mohid Imran" },
+      {
+        name: "google-site-verification",
+        content: "G5DpinlzWbMIcuD2mpSmd-Fdw6NewdmVY_PwFzzc38M",
+      },
       { property: "og:title", content: "Mohid Imran | Shopify & Full Stack Developer" },
       {
         property: "og:description",
