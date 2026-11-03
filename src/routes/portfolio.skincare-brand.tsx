@@ -363,14 +363,14 @@ function SkincareBrandPage() {
         </div>
       </section>
 
-      <section className="bg-bone px-6 py-24 text-ink md:px-10 md:py-40">
-        <div className="mx-auto max-w-[1400px] border-y border-ink/10 py-14 text-center md:py-20">
+      <section className="bg-ink px-6 py-24 md:px-10 md:py-40">
+        <div className="mx-auto max-w-[1400px] border-y border-white/10 py-14 text-center md:py-20">
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-mist">/ Next</p>
           <h2 className="mx-auto mt-6 max-w-5xl font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
             Need a Storefront Built From Design Through
             <span className="font-serif italic text-acid"> Launch?</span>
           </h2>
-          <div className="mx-auto mt-8 max-w-2xl space-y-4 text-base leading-relaxed text-mist md:text-lg">
+          <div className="mx-auto mt-8 max-w-2xl space-y-4 text-base leading-relaxed text-bone/70 md:text-lg">
             <p>
               Share your brand direction, Figma files or product catalog, and we can define the
               Shopify development scope your launch needs.
